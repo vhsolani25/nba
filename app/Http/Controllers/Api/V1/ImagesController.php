@@ -1,27 +1,31 @@
 <?php
-
 namespace App\Http\Controllers\Api\V1;
 
-use App\Image;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Image as ImageResource;
 use App\Http\Requests\Admin\StoreImagesRequest;
 use App\Http\Requests\Admin\UpdateImagesRequest;
-use Illuminate\Http\Request;
+use App\Http\Resources\Image as ImageResource;
+use App\Image;
 use Illuminate\Support\Facades\Gate;
-
-use App\Http\Controllers\Traits\FileUploadTrait;
-
 
 class ImagesController extends Controller
 {
+    /**
+     * Image List
+     *
+     * @return mixed
+     */
     public function index()
     {
-        
-
         return new ImageResource(Image::with([])->get());
     }
 
+    /**
+     * View Image
+     *
+     * @param int|string $id
+     * @return mixed
+     */
     public function show($id)
     {
         if (Gate::denies('image_view')) {
@@ -33,6 +37,12 @@ class ImagesController extends Controller
         return new ImageResource($image);
     }
 
+    /**
+     * Store Image
+     *
+     * @param StoreImagesRequest $request
+     * @return mixed
+     */
     public function store(StoreImagesRequest $request)
     {
         if (Gate::denies('image_create')) {
@@ -40,7 +50,7 @@ class ImagesController extends Controller
         }
 
         $image = Image::create($request->all());
-        
+
         if ($request->hasFile('image')) {
             $image->addMedia($request->file('image'))->toMediaCollection('image');
         }
@@ -50,6 +60,13 @@ class ImagesController extends Controller
             ->setStatusCode(201);
     }
 
+    /**
+     * Update Image
+     *
+     * @param UpdateImagesRequest $request
+     * @param int|string $id
+     * @return mixed
+     */
     public function update(UpdateImagesRequest $request, $id)
     {
         if (Gate::denies('image_edit')) {
@@ -58,8 +75,8 @@ class ImagesController extends Controller
 
         $image = Image::findOrFail($id);
         $image->update($request->all());
-        
-        if (! $request->input('image') && $image->getFirstMedia('image')) {
+
+        if (!$request->input('image') && $image->getFirstMedia('image')) {
             $image->getFirstMedia('image')->delete();
         }
         if ($request->hasFile('image')) {
@@ -71,6 +88,12 @@ class ImagesController extends Controller
             ->setStatusCode(202);
     }
 
+    /**
+     * Destroy Image
+     *
+     * @param int|string $id
+     * @return mixed
+     */
     public function destroy($id)
     {
         if (Gate::denies('image_delete')) {

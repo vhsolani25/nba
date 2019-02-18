@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\User;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User as UserResource;
 use App\Http\Requests\Admin\StoreUsersRequest;
 use App\Http\Requests\Admin\UpdateUsersRequest;
-use Illuminate\Http\Request;
+use App\Http\Resources\User as UserResource;
+use App\User;
 use Illuminate\Support\Facades\Gate;
-
-
 
 class UsersController extends Controller
 {
+    /**
+     * User List
+     *
+     * @return mixed
+     */
     public function index()
     {
         if (Gate::denies('user_access')) {
@@ -23,6 +25,12 @@ class UsersController extends Controller
         return new UserResource(User::with(['role'])->get());
     }
 
+    /**
+     * View User
+     *
+     * @param int|string $id
+     * @return mixed
+     */
     public function show($id)
     {
         if (Gate::denies('user_view')) {
@@ -34,6 +42,12 @@ class UsersController extends Controller
         return new UserResource($user);
     }
 
+    /**
+     * Store User
+     *
+     * @param StoreUsersRequest $request
+     * @return mixed
+     */
     public function store(StoreUsersRequest $request)
     {
         if (Gate::denies('user_create')) {
@@ -42,13 +56,19 @@ class UsersController extends Controller
 
         $user = User::create($request->all());
         $user->role()->sync($request->input('role', []));
-        
 
         return (new UserResource($user))
             ->response()
             ->setStatusCode(201);
     }
 
+    /**
+     * Update User
+     *
+     * @param UpdateUsersRequest $request
+     * @param int|string $id
+     * @return mixed
+     */
     public function update(UpdateUsersRequest $request, $id)
     {
         if (Gate::denies('user_edit')) {
@@ -58,14 +78,18 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->update($request->all());
         $user->role()->sync($request->input('role', []));
-        
-        
 
         return (new UserResource($user))
             ->response()
             ->setStatusCode(202);
     }
 
+    /**
+     * Destroy User
+     *
+     * @param int|string $id
+     * @return mixed
+     */
     public function destroy($id)
     {
         if (Gate::denies('user_delete')) {

@@ -52,7 +52,7 @@
                                             @input="updatePassword"
                                             >
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="role">Role *</label>
                                     <v-select
                                             name="role"
@@ -62,7 +62,7 @@
                                             :options="rolesAll"
                                             multiple
                                             />
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="box-footer">
@@ -84,52 +84,59 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-    data() {
-        return {
-            // Code...
-        }
+  data() {
+    return {
+      // Code...
+    };
+  },
+  computed: {
+    ...mapGetters("UsersSingle", ["item", "loading", "rolesAll"])
+  },
+  created() {
+    this.fetchRolesAll();
+  },
+  destroyed() {
+    this.resetState();
+  },
+  methods: {
+    ...mapActions("UsersSingle", [
+      "storeData",
+      "resetState",
+      "setName",
+      "setEmail",
+      "setPassword",
+      "setRole",
+      "fetchRolesAll"
+    ]),
+    updateName(e) {
+      this.setName(e.target.value);
     },
-    computed: {
-        ...mapGetters('UsersSingle', ['item', 'loading', 'rolesAll'])
+    updateEmail(e) {
+      this.setEmail(e.target.value);
     },
-    created() {
-        this.fetchRolesAll()
+    updatePassword(e) {
+      this.setPassword(e.target.value);
     },
-    destroyed() {
-        this.resetState()
+    updateRole(value) {
+      this.setRole(value);
     },
-    methods: {
-        ...mapActions('UsersSingle', ['storeData', 'resetState', 'setName', 'setEmail', 'setPassword', 'setRole', 'fetchRolesAll']),
-        updateName(e) {
-            this.setName(e.target.value)
-        },
-        updateEmail(e) {
-            this.setEmail(e.target.value)
-        },
-        updatePassword(e) {
-            this.setPassword(e.target.value)
-        },
-        updateRole(value) {
-            this.setRole(value)
-        },
-        submitForm() {
-            this.storeData()
-                .then(() => {
-                    this.$router.push({ name: 'users.index' })
-                    this.$eventHub.$emit('create-success')
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
-        }
+    submitForm() {
+      this.storeData()
+        .then(() => {
+          this.$router.push({ name: "users.index" });
+          this.$eventHub.$emit("create-success");
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
-}
+  }
+};
 </script>
 
 
 <style scoped>
-
 </style>

@@ -33,14 +33,14 @@
                                             <th>Email</th>
                                             <td>{{ item.email }}</td>
                                             </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <th>Role</th>
                                             <td>
                                                 <span class="label label-info" v-for="role in item.role">
                                                     {{ role.title }}
                                                 </span>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -55,36 +55,35 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-    data() {
-        return {
-            // Code...
-        }
-    },
-    created() {
-        this.fetchData(this.$route.params.id)
-    },
-    destroyed() {
-        this.resetState()
-    },
-    computed: {
-        ...mapGetters('UsersSingle', ['item'])
-    },
-    watch: {
-        "$route.params.id": function() {
-            this.resetState()
-            this.fetchData(this.$route.params.id)
-        }
-    },
-    methods: {
-        ...mapActions('UsersSingle', ['fetchData', 'resetState'])
+  data() {
+    return {
+      // Code...
+    };
+  },
+  created() {
+    this.fetchData(this.$route.params.id);
+  },
+  destroyed() {
+    this.resetState();
+  },
+  computed: {
+    ...mapGetters("UsersSingle", ["item"])
+  },
+  watch: {
+    "$route.params.id": function() {
+      this.resetState();
+      this.fetchData(this.$route.params.id);
     }
-}
+  },
+  methods: {
+    ...mapActions("UsersSingle", ["fetchData", "resetState"])
+  }
+};
 </script>
 
 
 <style scoped>
-
 </style>

@@ -12,7 +12,7 @@
                 </a>
             </li>
 
-            <li class="treeview" v-if="$can('user_management_access')">
+            <!-- <li class="treeview" v-if="$can('user_management_access')">
                 <a href="#">
                     <i class="fa fa-users"></i>
                     <span>@lang('quickadmin.user-management.title')</span>
@@ -40,6 +40,12 @@
                         </router-link>
                     </li>
                 </ul>
+            </li> -->
+            <li v-if="$can('user_access')">
+                <router-link :to="{ name: 'users.index' }">
+                    <i class="fa fa-user"></i>
+                    <span>@lang('quickadmin.users.title')</span>
+                </router-link>
             </li>
             <li v-if="$can('image_access')">
                 <router-link :to="{ name: 'images.index' }">

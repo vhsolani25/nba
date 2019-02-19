@@ -53,9 +53,10 @@ class UsersController extends Controller
         if (Gate::denies('user_create')) {
             return abort(401);
         }
-
+        
         $user = User::create($request->all());
-        $user->role()->sync($request->input('role', []));
+        //$user->role()->sync($request->input('role', []));
+        $user->role()->sync([1]);
 
         return (new UserResource($user))
             ->response()
@@ -96,6 +97,11 @@ class UsersController extends Controller
             return abort(401);
         }
 
+        if($id == 1)
+        {
+            return abort(401);
+        }
+        
         $user = User::findOrFail($id);
         $user->delete();
 

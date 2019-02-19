@@ -52,7 +52,7 @@
                                             @input="updatePassword"
                                             >
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="role">Role *</label>
                                     <v-select
                                             name="role"
@@ -62,7 +62,7 @@
                                             :options="rolesAll"
                                             multiple
                                             />
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="box-footer">
@@ -84,58 +84,65 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-    data() {
-        return {
-            // Code...
-        }
-    },
-    computed: {
-        ...mapGetters('UsersSingle', ['item', 'loading', 'rolesAll']),
-    },
-    created() {
-        this.fetchData(this.$route.params.id)
-    },
-    destroyed() {
-        this.resetState()
-    },
-    watch: {
-        "$route.params.id": function() {
-            this.resetState()
-            this.fetchData(this.$route.params.id)
-        }
-    },
-    methods: {
-        ...mapActions('UsersSingle', ['fetchData', 'updateData', 'resetState', 'setName', 'setEmail', 'setPassword', 'setRole']),
-        updateName(e) {
-            this.setName(e.target.value)
-        },
-        updateEmail(e) {
-            this.setEmail(e.target.value)
-        },
-        updatePassword(e) {
-            this.setPassword(e.target.value)
-        },
-        updateRole(value) {
-            this.setRole(value)
-        },
-        submitForm() {
-            this.updateData()
-                .then(() => {
-                    this.$router.push({ name: 'users.index' })
-                    this.$eventHub.$emit('update-success')
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
-        }
+  data() {
+    return {
+      // Code...
+    };
+  },
+  computed: {
+    ...mapGetters("UsersSingle", ["item", "loading", "rolesAll"])
+  },
+  created() {
+    this.fetchData(this.$route.params.id);
+  },
+  destroyed() {
+    this.resetState();
+  },
+  watch: {
+    "$route.params.id": function() {
+      this.resetState();
+      this.fetchData(this.$route.params.id);
     }
-}
+  },
+  methods: {
+    ...mapActions("UsersSingle", [
+      "fetchData",
+      "updateData",
+      "resetState",
+      "setName",
+      "setEmail",
+      "setPassword",
+      "setRole"
+    ]),
+    updateName(e) {
+      this.setName(e.target.value);
+    },
+    updateEmail(e) {
+      this.setEmail(e.target.value);
+    },
+    updatePassword(e) {
+      this.setPassword(e.target.value);
+    },
+    updateRole(value) {
+      this.setRole(value);
+    },
+    submitForm() {
+      this.updateData()
+        .then(() => {
+          this.$router.push({ name: "users.index" });
+          this.$eventHub.$emit("update-success");
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  }
+};
 </script>
 
 
 <style scoped>
-
 </style>

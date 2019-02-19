@@ -54,8 +54,8 @@ class User extends Authenticatable
             'name' => 'max:191|required',
             'email' => 'email|max:191|required|unique:users,email',
             'password' => 'required',
-            'role' => 'array|required',
-            'role.*' => 'integer|exists:roles,id|max:4294967295|required',
+            // 'role' => 'array|required',
+            // 'role.*' => 'integer|exists:roles,id|max:4294967295|required',
             'remember_token' => 'max:191|nullable',
         ];
     }
@@ -72,8 +72,8 @@ class User extends Authenticatable
             'name' => 'max:191|required',
             'email' => 'email|max:191|required|unique:users,email,' . $request->route('user'),
             'password' => '',
-            'role' => 'array|required',
-            'role.*' => 'integer|exists:roles,id|max:4294967295|required',
+            // 'role' => 'array|required',
+            // 'role.*' => 'integer|exists:roles,id|max:4294967295|required',
             'remember_token' => 'max:191|nullable',
         ];
     }

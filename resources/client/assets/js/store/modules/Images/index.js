@@ -32,6 +32,7 @@ const actions = {
         axios
             .get("/api/v1/images")
             .then(response => {
+                console.log(response.data);
                 commit("setAll", response.data.data);
             })
             .catch(error => {

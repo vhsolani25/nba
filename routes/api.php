@@ -8,3 +8,7 @@ Route::group(['prefix' => '/v1', 'middleware' => ['auth:api'], 'namespace' => 'A
     Route::apiResource('users', 'UsersController');
     Route::apiResource('images', 'ImagesController');
 });
+
+Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
+    Route::apiResource('puzzles', 'PuzzlesController');
+});

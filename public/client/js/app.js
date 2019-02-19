@@ -28457,6 +28457,7 @@ var actions = {
         commit("setLoading", true);
 
         axios.get("/api/v1/images").then(function (response) {
+            console.log(response.data);
             commit("setAll", response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;

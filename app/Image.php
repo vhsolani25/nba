@@ -3,16 +3,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
- * Class Image
+ * Class Image.
  *
- * @package App
  * @property string $name
  * @property string $image
- * @property integer $order
+ * @property int $order
  * @property string $status
  */
 class Image extends Model implements HasMedia
@@ -20,7 +20,7 @@ class Image extends Model implements HasMedia
     use SoftDeletes, HasMediaTrait;
 
     /**
-     * Fillable Form Fields
+     * Fillable Form Fields.
      *
      * @var array
      */
@@ -31,17 +31,18 @@ class Image extends Model implements HasMedia
     ];
 
     /**
-     * Appendable Fields
+     * Appendable Fields.
      *
      * @var array
      */
     protected $appends = [
         'image',
         'image_link',
+        'image_full_url',
     ];
 
     /**
-     * Relation With Models
+     * Relation With Models.
      *
      * @var array
      */
@@ -50,9 +51,10 @@ class Image extends Model implements HasMedia
     ];
 
     /**
-     * Validation Rules To Store New Image
+     * Validation Rules To Store New Image.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public static function storeValidation($request)
@@ -66,9 +68,10 @@ class Image extends Model implements HasMedia
     }
 
     /**
-     * Validation Rules To Update Existing Image
+     * Validation Rules To Update Existing Image.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public static function updateValidation($request)
@@ -82,7 +85,7 @@ class Image extends Model implements HasMedia
     }
 
     /**
-     * Image Attribute
+     * Image Attribute.
      *
      * @return mixed
      */
@@ -92,7 +95,24 @@ class Image extends Model implements HasMedia
     }
 
     /**
-     * Image Link Attribute
+     * Image Full URL Attribute.
+     *
+     * @return mixed
+     */
+    public function getImageFullUrlAttribute()
+    {
+        $file = $this->getFirstMedia('image');
+
+        if (!$file) {
+            return null;
+        }
+
+        return '<imge src="' . $file->getFullUrl() . '" target="_blank" />';
+        //return '<a href="' . $file->getFullUrl() . '" target="_blank">' . $file->file_name . '</a>';
+    }
+
+    /**
+     * Image Link Attribute.
      *
      * @return string
      */
@@ -103,7 +123,20 @@ class Image extends Model implements HasMedia
             return null;
         }
 
-        return '<a href="' . $file->getUrl() . '" target="_blank">' . $file->file_name . '</a>';
+        return '<img src="' . $file->getFullUrl('thumb') . '"/>';
+        //return '<a href="' . $file->getUrl() . '" target="_blank">' . $file->file_name . '</a>';
     }
 
+    /**
+     * Register Media Conversion.
+     *
+     * @param Media $media
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+              ->width(150)
+              ->height(150)
+              ->sharpen(10);
+    }
 }

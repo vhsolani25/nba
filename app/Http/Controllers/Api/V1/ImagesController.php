@@ -101,7 +101,7 @@ class ImagesController extends Controller
         }
 
         $image = Image::findOrFail($id);
-        $image->delete();
+        $image->forceDelete();
 
         return response(null, 204);
     }

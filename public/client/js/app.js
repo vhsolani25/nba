@@ -32,26 +32,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            // Code...
-        };
-    },
+  data: function data() {
+    return {
+      // Code...
+    };
+  },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('Alert', ['message', 'errors', 'color'])),
-    created: function created() {
-        // Code...
-    },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("Alert", ["message", "errors", "color"])),
+  created: function created() {
+    // Code...
+  },
+  destroyed: function destroyed() {
+    this.resetState();
+  },
 
-    watch: {
-        "$route.params.id": function $routeParamsId() {
-            this.resetState();
-        }
-    },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('Alert', ['resetState']))
+  watch: {
+    "$route.params.id": function $routeParamsId() {
+      this.resetState();
+    }
+  },
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("Alert", ["resetState"]))
 });
 
 /***/ }),
@@ -70,20 +70,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            // Code...
-        };
-    },
-    created: function created() {
-        // Code...
-    },
+  data: function data() {
+    return {
+      // Code...
+    };
+  },
+  created: function created() {
+    // Code...
+  },
 
-    methods: {
-        routerBack: function routerBack() {
-            this.$router.go(-1);
-        }
+  methods: {
+    routerBack: function routerBack() {
+      this.$router.go(-1);
     }
+  }
 });
 
 /***/ }),
@@ -179,40 +179,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            // Code...
-        };
-    },
+  data: function data() {
+    return {
+      // Code...
+    };
+  },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('ChangePassword', ['current_password', 'new_password', 'new_password_confirmation', 'loading'])),
-    created: function created() {
-        // Code...
-    },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ChangePassword", ["current_password", "new_password", "new_password_confirmation", "loading"])),
+  created: function created() {
+    // Code...
+  },
+  destroyed: function destroyed() {
+    this.resetState();
+  },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('ChangePassword', ['storeData', 'resetState', 'setCurrentPassword', 'setNewPassword', 'setNewPasswordConfirmation']), {
-        updateCurrentPassword: function updateCurrentPassword(e) {
-            this.setCurrentPassword(e.target.value);
-        },
-        updateNewPassword: function updateNewPassword(e) {
-            this.setNewPassword(e.target.value);
-        },
-        updateNewPasswordConfirmation: function updateNewPasswordConfirmation(e) {
-            this.setNewPasswordConfirmation(e.target.value);
-        },
-        submitForm: function submitForm() {
-            var _this = this;
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ChangePassword", ["storeData", "resetState", "setCurrentPassword", "setNewPassword", "setNewPasswordConfirmation"]), {
+    updateCurrentPassword: function updateCurrentPassword(e) {
+      this.setCurrentPassword(e.target.value);
+    },
+    updateNewPassword: function updateNewPassword(e) {
+      this.setNewPassword(e.target.value);
+    },
+    updateNewPasswordConfirmation: function updateNewPasswordConfirmation(e) {
+      this.setNewPasswordConfirmation(e.target.value);
+    },
+    submitForm: function submitForm() {
+      var _this = this;
 
-            this.storeData().then(function () {
-                _this.$eventHub.$emit('update-success');
-            }).catch(function (error) {
-                console.error(error);
-            });
-        }
-    })
+      this.storeData().then(function () {
+        _this.$eventHub.$emit("update-success");
+      }).catch(function (error) {
+        console.error(error);
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -236,34 +236,34 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            // Code...
-        };
-    },
+  data: function data() {
+    return {
+      // Code...
+    };
+  },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('Rules', ['rules'])),
-    created: function created() {
-        this.$eventHub.$on('create-success', this.itemCreated);
-        this.$eventHub.$on('update-success', this.itemUpdated);
-        this.$eventHub.$on('delete-success', this.itemDeleted);
-        this.$eventHub.$on('rules-update', this.rulesUpdate);
-    },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("Rules", ["rules"])),
+  created: function created() {
+    this.$eventHub.$on("create-success", this.itemCreated);
+    this.$eventHub.$on("update-success", this.itemUpdated);
+    this.$eventHub.$on("delete-success", this.itemDeleted);
+    this.$eventHub.$on("rules-update", this.rulesUpdate);
+  },
 
-    methods: {
-        itemCreated: function itemCreated() {
-            this.$awn.success('Your item has been successfully saved.');
-        },
-        itemUpdated: function itemUpdated() {
-            this.$awn.success('Your item has been successfully updated.');
-        },
-        itemDeleted: function itemDeleted() {
-            this.$awn.success('Your item has been successfully deleted.');
-        },
-        rulesUpdate: function rulesUpdate() {
-            this.$ability.update([{ subject: 'all', actions: this.rules }]);
-        }
+  methods: {
+    itemCreated: function itemCreated() {
+      this.$awn.success("Your item has been successfully saved.");
+    },
+    itemUpdated: function itemUpdated() {
+      this.$awn.success("Your item has been successfully updated.");
+    },
+    itemDeleted: function itemDeleted() {
+      this.$awn.success("Your item has been successfully deleted.");
+    },
+    rulesUpdate: function rulesUpdate() {
+      this.$ability.update([{ subject: "all", actions: this.rules }]);
     }
+  }
 });
 
 /***/ }),
@@ -293,26 +293,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     status: {
       type: String | Boolean,
-      default: ''
+      default: ""
     },
     type: {
       type: String,
-      default: 'submit'
+      default: "submit"
     }
   },
   computed: {
     getSpinnerClass: function getSpinnerClass() {
       return {
-        'spinner fa fa-circle-o-notch fa-spin': this.loading,
-        'check': !this.emptyStatus && this.isSuccess && !this.loading,
-        'cross': !this.emptyStatus && !this.isSuccess && !this.loading
+        "spinner fa fa-circle-o-notch fa-spin": this.loading,
+        check: !this.emptyStatus && this.isSuccess && !this.loading,
+        cross: !this.emptyStatus && !this.isSuccess && !this.loading
       };
     },
     getBackgroundClass: function getBackgroundClass() {
       return {
-        'vue-btn-loader-error': !this.emptyStatus && !this.isSuccess,
-        'vue-btn-loader-success': this.isSuccess,
-        'is-loading': this.loading
+        "vue-btn-loader-error": !this.emptyStatus && !this.isSuccess,
+        "vue-btn-loader-success": this.isSuccess,
+        "is-loading": this.loading
       };
     },
     loading: function loading() {
@@ -322,10 +322,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.type;
     },
     isSuccess: function isSuccess() {
-      return this.status === 'success' || this.status === true;
+      return this.status === "success" || this.status === true;
     },
     emptyStatus: function emptyStatus() {
-      return this.status === '';
+      return this.status === "";
     },
     showSlot: function showSlot() {
       return this.loading || !this.loading && this.emptyStatus;
@@ -459,63 +459,63 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            // Code...
-        };
+  data: function data() {
+    return {
+      // Code...
+    };
+  },
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item", "loading"])),
+  created: function created() {
+    // Code ...
+  },
+  destroyed: function destroyed() {
+    this.resetState();
+  },
+
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesSingle", ["storeData", "resetState", "setName", "setImage", "setOrder", "setStatus"]), {
+    updateName: function updateName(e) {
+      this.setName(e.target.value);
     },
+    removeImage: function removeImage(e, id) {
+      var _this = this;
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('ImagesSingle', ['item', 'loading'])),
-    created: function created() {
-        // Code ...
-    },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
-
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('ImagesSingle', ['storeData', 'resetState', 'setName', 'setImage', 'setOrder', 'setStatus']), {
-        updateName: function updateName(e) {
-            this.setName(e.target.value);
-        },
-        removeImage: function removeImage(e, id) {
-            var _this = this;
-
-            this.$swal({
-                title: 'Are you sure?',
-                text: "To fully delete the file submit the form.",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Delete',
-                confirmButtonColor: '#dd4b39',
-                focusCancel: true,
-                reverseButtons: true
-            }).then(function (result) {
-                if (typeof result.dismiss === "undefined") {
-                    _this.setImage('');
-                }
-            });
-        },
-        updateImage: function updateImage(e) {
-            this.setImage(e.target.files[0]);
-            this.$forceUpdate();
-        },
-        updateOrder: function updateOrder(e) {
-            this.setOrder(e.target.value);
-        },
-        updateStatus: function updateStatus(value) {
-            this.setStatus(value);
-        },
-        submitForm: function submitForm() {
-            var _this2 = this;
-
-            this.storeData().then(function () {
-                _this2.$router.push({ name: 'images.index' });
-                _this2.$eventHub.$emit('create-success');
-            }).catch(function (error) {
-                console.error(error);
-            });
+      this.$swal({
+        title: "Are you sure?",
+        text: "To fully delete the file submit the form.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        confirmButtonColor: "#dd4b39",
+        focusCancel: true,
+        reverseButtons: true
+      }).then(function (result) {
+        if (typeof result.dismiss === "undefined") {
+          _this.setImage("");
         }
-    })
+      });
+    },
+    updateImage: function updateImage(e) {
+      this.setImage(e.target.files[0]);
+      this.$forceUpdate();
+    },
+    updateOrder: function updateOrder(e) {
+      this.setOrder(e.target.value);
+    },
+    updateStatus: function updateStatus(value) {
+      this.setStatus(value);
+    },
+    submitForm: function submitForm() {
+      var _this2 = this;
+
+      this.storeData().then(function () {
+        _this2.$router.push({ name: "images.index" });
+        _this2.$eventHub.$emit("create-success");
+      }).catch(function (error) {
+        console.error(error);
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -644,69 +644,69 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            // Code...
-        };
-    },
+  data: function data() {
+    return {
+      // Code...
+    };
+  },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('ImagesSingle', ['item', 'loading'])),
-    created: function created() {
-        this.fetchData(this.$route.params.id);
-    },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item", "loading"])),
+  created: function created() {
+    this.fetchData(this.$route.params.id);
+  },
+  destroyed: function destroyed() {
+    this.resetState();
+  },
 
-    watch: {
-        "$route.params.id": function $routeParamsId() {
-            this.resetState();
-            this.fetchData(this.$route.params.id);
+  watch: {
+    "$route.params.id": function $routeParamsId() {
+      this.resetState();
+      this.fetchData(this.$route.params.id);
+    }
+  },
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesSingle", ["fetchData", "updateData", "resetState", "setName", "setImage", "setOrder", "setStatus"]), {
+    updateName: function updateName(e) {
+      this.setName(e.target.value);
+    },
+    removeImage: function removeImage(e, id) {
+      var _this = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "To fully delete the file submit the form.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        confirmButtonColor: "#dd4b39",
+        focusCancel: true,
+        reverseButtons: true
+      }).then(function (result) {
+        if (typeof result.dismiss === "undefined") {
+          _this.setImage("");
         }
+      });
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('ImagesSingle', ['fetchData', 'updateData', 'resetState', 'setName', 'setImage', 'setOrder', 'setStatus']), {
-        updateName: function updateName(e) {
-            this.setName(e.target.value);
-        },
-        removeImage: function removeImage(e, id) {
-            var _this = this;
+    updateImage: function updateImage(e) {
+      this.setImage(e.target.files[0]);
+      this.$forceUpdate();
+    },
+    updateOrder: function updateOrder(e) {
+      this.setOrder(e.target.value);
+    },
+    updateStatus: function updateStatus(value) {
+      this.setStatus(value);
+    },
+    submitForm: function submitForm() {
+      var _this2 = this;
 
-            this.$swal({
-                title: 'Are you sure?',
-                text: "To fully delete the file submit the form.",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Delete',
-                confirmButtonColor: '#dd4b39',
-                focusCancel: true,
-                reverseButtons: true
-            }).then(function (result) {
-                if (typeof result.dismiss === "undefined") {
-                    _this.setImage('');
-                }
-            });
-        },
-        updateImage: function updateImage(e) {
-            this.setImage(e.target.files[0]);
-            this.$forceUpdate();
-        },
-        updateOrder: function updateOrder(e) {
-            this.setOrder(e.target.value);
-        },
-        updateStatus: function updateStatus(value) {
-            this.setStatus(value);
-        },
-        submitForm: function submitForm() {
-            var _this2 = this;
-
-            this.updateData().then(function () {
-                _this2.$router.push({ name: 'images.index' });
-                _this2.$eventHub.$emit('update-success');
-            }).catch(function (error) {
-                console.error(error);
-            });
-        }
-    })
+      this.updateData().then(function () {
+        _this2.$router.push({ name: "images.index" });
+        _this2.$eventHub.$emit("update-success");
+      }).catch(function (error) {
+        console.error(error);
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -896,26 +896,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            // Code...
-        };
-    },
-    created: function created() {
-        this.fetchData(this.$route.params.id);
-    },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
+  data: function data() {
+    return {
+      // Code...
+    };
+  },
+  created: function created() {
+    this.fetchData(this.$route.params.id);
+  },
+  destroyed: function destroyed() {
+    this.resetState();
+  },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('ImagesSingle', ['item'])),
-    watch: {
-        "$route.params.id": function $routeParamsId() {
-            this.resetState();
-            this.fetchData(this.$route.params.id);
-        }
-    },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('ImagesSingle', ['fetchData', 'resetState']))
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item"])),
+  watch: {
+    "$route.params.id": function $routeParamsId() {
+      this.resetState();
+      this.fetchData(this.$route.params.id);
+    }
+  },
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesSingle", ["fetchData", "resetState"]))
 });
 
 /***/ }),
@@ -932,7 +932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['row']
+  props: ["row"]
 });
 
 /***/ }),
@@ -2548,7 +2548,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-04997954],\n.fade-leave-active[data-v-04997954] {\n    -webkit-transition: opacity 1s;\n    transition: opacity 1s;\n}\n.fade-enter[data-v-04997954],\n.fade-leave-active[data-v-04997954] {\n    opacity: 0;\n    will-change: opacity;\n}\n.vue-btn[data-v-04997954] {\n    -moz-appearance: none;\n    -webkit-appearance: none;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n    -webkit-box-pack: start;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n    position: relative;\n    vertical-align: top;\n    -webkit-touch-callout: none;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    text-align: center;\n    white-space: nowrap;\n    -webkit-transition: .3s all ease;\n    transition: .3s all ease;\n}\nbutton.vue-btn-loader-error[data-v-04997954]:not(.is-loading) {\n    width: 48px;\n    background-color: #F44336;\n    color: #fff;\n}\nbutton.vue-btn-loader-success[data-v-04997954]:not(.is-loading) {\n    width: 48px;\n    background-color: #8BC34A;\n    color: #fff;\n}\nbutton.vue-btn[data-v-04997954]:disabled {\n    cursor: not-allowed;\n}\n\n/**\n      Spinner Icon\n  **/\n.spinner[data-v-04997954] {\n    margin-right: 8px;\n    opacity: 1;\n    filter: alpha(opacity=100);\n    -webkit-transition: .3s all ease;\n    transition: .3s all ease;\n}\n\n/**\n      Check Icon\n  **/\n.check[data-v-04997954] {\n    display: inline-block;\n    width: 23px;\n    height: 24px;\n    border-radius: 50%;\n    -webkit-transform: rotate(45deg);\n            transform: rotate(45deg);\n    color: white;\n    will-change: transform;\n}\n.check[data-v-04997954]:before {\n    content: \"\";\n    position: absolute;\n    width: 3px;\n    height: 9px;\n    background-color: #fff;\n    left: 11px;\n    top: 6px;\n}\n.check[data-v-04997954]:after {\n    content: \"\";\n    position: absolute;\n    width: 3px;\n    height: 3px;\n    background-color: #fff;\n    left: 8px;\n    top: 12px;\n}\n\n/**\n      Cross Icon\n  **/\n.cross[data-v-04997954] {\n    display: inline-block;\n    width: 17px;\n    height: 16px;\n    position: relative;\n}\n.cross[data-v-04997954]:before,\n.cross[data-v-04997954]:after {\n    position: absolute;\n    left: 8px;\n    content: ' ';\n    height: 16px;\n    width: 2px;\n    background-color: #fff;\n}\n.cross[data-v-04997954]:before {\n    -webkit-transform: rotate(45deg);\n            transform: rotate(45deg);\n    will-change: transform;\n}\n.cross[data-v-04997954]:after {\n    -webkit-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n    will-change: transform;\n}\n\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-04997954],\n.fade-leave-active[data-v-04997954] {\n  -webkit-transition: opacity 1s;\n  transition: opacity 1s;\n}\n.fade-enter[data-v-04997954],\n.fade-leave-active[data-v-04997954] {\n  opacity: 0;\n  will-change: opacity;\n}\n.vue-btn[data-v-04997954] {\n  -moz-appearance: none;\n  -webkit-appearance: none;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  display: -webkit-inline-box;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: start;\n  -ms-flex-pack: start;\n  justify-content: flex-start;\n  position: relative;\n  vertical-align: top;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  text-align: center;\n  white-space: nowrap;\n  -webkit-transition: 0.3s all ease;\n  transition: 0.3s all ease;\n}\nbutton.vue-btn-loader-error[data-v-04997954]:not(.is-loading) {\n  width: 48px;\n  background-color: #f44336;\n  color: #fff;\n}\nbutton.vue-btn-loader-success[data-v-04997954]:not(.is-loading) {\n  width: 48px;\n  background-color: #8bc34a;\n  color: #fff;\n}\nbutton.vue-btn[data-v-04997954]:disabled {\n  cursor: not-allowed;\n}\n\n/**\n          Spinner Icon\n      **/\n.spinner[data-v-04997954] {\n  margin-right: 8px;\n  opacity: 1;\n  filter: alpha(opacity=100);\n  -webkit-transition: 0.3s all ease;\n  transition: 0.3s all ease;\n}\n\n/**\n          Check Icon\n      **/\n.check[data-v-04997954] {\n  display: inline-block;\n  width: 23px;\n  height: 24px;\n  border-radius: 50%;\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n  color: white;\n  will-change: transform;\n}\n.check[data-v-04997954]:before {\n  content: \"\";\n  position: absolute;\n  width: 3px;\n  height: 9px;\n  background-color: #fff;\n  left: 11px;\n  top: 6px;\n}\n.check[data-v-04997954]:after {\n  content: \"\";\n  position: absolute;\n  width: 3px;\n  height: 3px;\n  background-color: #fff;\n  left: 8px;\n  top: 12px;\n}\n\n/**\n          Cross Icon\n      **/\n.cross[data-v-04997954] {\n  display: inline-block;\n  width: 17px;\n  height: 16px;\n  position: relative;\n}\n.cross[data-v-04997954]:before,\n.cross[data-v-04997954]:after {\n  position: absolute;\n  left: 8px;\n  content: \" \";\n  height: 16px;\n  width: 2px;\n  background-color: #fff;\n}\n.cross[data-v-04997954]:before {\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n  will-change: transform;\n}\n.cross[data-v-04997954]:after {\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  will-change: transform;\n}\n", ""]);
 
 // exports
 
@@ -2578,7 +2578,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2593,7 +2593,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.row-alert[data-v-15a01839] {\n    padding: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.row-alert[data-v-15a01839] {\n  padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -2728,7 +2728,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2743,7 +2743,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2818,7 +2818,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2848,7 +2848,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2908,7 +2908,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26704,7 +26704,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config_ability__ = __webpack_require__("./resources/client/assets/js/config/ability.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__casl_vue__ = __webpack_require__("./node_modules/@casl/vue/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__ = __webpack_require__("./node_modules/vue-ckeditor2/dist/vue-ckeditor2.es.js");
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -26713,12 +26712,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 window._ = __webpack_require__("./node_modules/lodash/lodash.js");
 window.axios = __webpack_require__("./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 window.axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     if (error.response.status === 401) {
-        window.location.assign('/login');
+        window.location.assign("/login");
     }
 
     return Promise.reject(error);
@@ -26731,9 +26730,9 @@ window.purify = function (o) {
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
 }
 
 var date_format = document.head.querySelector('meta[name="dp-date"]');
@@ -26747,7 +26746,7 @@ if (date_format && time_format && datetime_format) {
     window.datetime_format_moment = datetime_format.content;
     window.app_locale = app_locale.content;
 } else {
-    console.error('Moment.js date and time formats not found');
+    console.error("Moment.js date and time formats not found");
 }
 
 /**
@@ -26781,18 +26780,18 @@ Vue.prototype.$eventHub = new Vue();
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue2_datatable_component__["default"]);
-Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_awesome_notifications___default.a, { position: 'top-right' });
+Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_awesome_notifications___default.a, { position: "top-right" });
 Vue.use(__WEBPACK_IMPORTED_MODULE_5_vue_bootstrap_datetimepicker___default.a);
 Vue.use(__WEBPACK_IMPORTED_MODULE_6_vue_sweetalert2__["default"]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_9__casl_vue__["abilitiesPlugin"], __WEBPACK_IMPORTED_MODULE_8__config_ability__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__["default"]);
 
-Vue.component('back-buttton', __webpack_require__("./resources/client/assets/js/components/BackButton.vue"));
-Vue.component('bootstrap-alert', __webpack_require__("./resources/client/assets/js/components/Alert.vue"));
-Vue.component('event-hub', __webpack_require__("./resources/client/assets/js/components/EventHub.vue"));
-Vue.component('vue-button-spinner', __webpack_require__("./resources/client/assets/js/components/VueButtonSpinner.vue"));
-Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_4_vue_select___default.a);
-Vue.component('vue-ckeditor', __WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__["default"]);
+Vue.component("back-buttton", __webpack_require__("./resources/client/assets/js/components/BackButton.vue"));
+Vue.component("bootstrap-alert", __webpack_require__("./resources/client/assets/js/components/Alert.vue"));
+Vue.component("event-hub", __webpack_require__("./resources/client/assets/js/components/EventHub.vue"));
+Vue.component("vue-button-spinner", __webpack_require__("./resources/client/assets/js/components/VueButtonSpinner.vue"));
+Vue.component("v-select", __WEBPACK_IMPORTED_MODULE_4_vue_select___default.a);
+Vue.component("vue-ckeditor", __WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__["default"]);
 
 moment.updateLocale(window.app_locale, {
     week: {
@@ -26822,7 +26821,7 @@ var app = new Vue({
     },
 
     watch: {
-        '$route': function $route() {
+        $route: function $route() {
             this.updateRules();
         }
     },
@@ -26830,14 +26829,14 @@ var app = new Vue({
         updateRules: function updateRules() {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].dispatch('Rules/fetchData').then(function () {
-                _this.$eventHub.$emit('rules-update');
+            __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].dispatch("Rules/fetchData").then(function () {
+                _this.$eventHub.$emit("rules-update");
             });
         }
     },
     router: __WEBPACK_IMPORTED_MODULE_0__routes__["a" /* default */],
     store: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */]
-}).$mount('#app');
+}).$mount("#app");
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/moment/moment.js")))
 
 /***/ }),
@@ -28331,11 +28330,31 @@ function subjectName(item) {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]);
 
-var routes = [{ path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_2__components_ChangePassword_vue___default.a, name: 'auth.change_password' }, { path: '/permissions', component: __WEBPACK_IMPORTED_MODULE_3__components_cruds_Permissions_Index_vue___default.a, name: 'permissions.index' }, { path: '/permissions/create', component: __WEBPACK_IMPORTED_MODULE_4__components_cruds_Permissions_Create_vue___default.a, name: 'permissions.create' }, { path: '/permissions/:id', component: __WEBPACK_IMPORTED_MODULE_5__components_cruds_Permissions_Show_vue___default.a, name: 'permissions.show' }, { path: '/permissions/:id/edit', component: __WEBPACK_IMPORTED_MODULE_6__components_cruds_Permissions_Edit_vue___default.a, name: 'permissions.edit' }, { path: '/roles', component: __WEBPACK_IMPORTED_MODULE_7__components_cruds_Roles_Index_vue___default.a, name: 'roles.index' }, { path: '/roles/create', component: __WEBPACK_IMPORTED_MODULE_8__components_cruds_Roles_Create_vue___default.a, name: 'roles.create' }, { path: '/roles/:id', component: __WEBPACK_IMPORTED_MODULE_9__components_cruds_Roles_Show_vue___default.a, name: 'roles.show' }, { path: '/roles/:id/edit', component: __WEBPACK_IMPORTED_MODULE_10__components_cruds_Roles_Edit_vue___default.a, name: 'roles.edit' }, { path: '/users', component: __WEBPACK_IMPORTED_MODULE_11__components_cruds_Users_Index_vue___default.a, name: 'users.index' }, { path: '/users/create', component: __WEBPACK_IMPORTED_MODULE_12__components_cruds_Users_Create_vue___default.a, name: 'users.create' }, { path: '/users/:id', component: __WEBPACK_IMPORTED_MODULE_13__components_cruds_Users_Show_vue___default.a, name: 'users.show' }, { path: '/users/:id/edit', component: __WEBPACK_IMPORTED_MODULE_14__components_cruds_Users_Edit_vue___default.a, name: 'users.edit' }, { path: '/images', component: __WEBPACK_IMPORTED_MODULE_15__components_cruds_Images_Index_vue___default.a, name: 'images.index' }, { path: '/images/create', component: __WEBPACK_IMPORTED_MODULE_16__components_cruds_Images_Create_vue___default.a, name: 'images.create' }, { path: '/images/:id', component: __WEBPACK_IMPORTED_MODULE_17__components_cruds_Images_Show_vue___default.a, name: 'images.show' }, { path: '/images/:id/edit', component: __WEBPACK_IMPORTED_MODULE_18__components_cruds_Images_Edit_vue___default.a, name: 'images.edit' }];
+var routes = [{
+    path: "/change-password",
+    component: __WEBPACK_IMPORTED_MODULE_2__components_ChangePassword_vue___default.a,
+    name: "auth.change_password"
+}, {
+    path: "/permissions",
+    component: __WEBPACK_IMPORTED_MODULE_3__components_cruds_Permissions_Index_vue___default.a,
+    name: "permissions.index"
+}, {
+    path: "/permissions/create",
+    component: __WEBPACK_IMPORTED_MODULE_4__components_cruds_Permissions_Create_vue___default.a,
+    name: "permissions.create"
+}, {
+    path: "/permissions/:id",
+    component: __WEBPACK_IMPORTED_MODULE_5__components_cruds_Permissions_Show_vue___default.a,
+    name: "permissions.show"
+}, {
+    path: "/permissions/:id/edit",
+    component: __WEBPACK_IMPORTED_MODULE_6__components_cruds_Permissions_Edit_vue___default.a,
+    name: "permissions.edit"
+}, { path: "/roles", component: __WEBPACK_IMPORTED_MODULE_7__components_cruds_Roles_Index_vue___default.a, name: "roles.index" }, { path: "/roles/create", component: __WEBPACK_IMPORTED_MODULE_8__components_cruds_Roles_Create_vue___default.a, name: "roles.create" }, { path: "/roles/:id", component: __WEBPACK_IMPORTED_MODULE_9__components_cruds_Roles_Show_vue___default.a, name: "roles.show" }, { path: "/roles/:id/edit", component: __WEBPACK_IMPORTED_MODULE_10__components_cruds_Roles_Edit_vue___default.a, name: "roles.edit" }, { path: "/users", component: __WEBPACK_IMPORTED_MODULE_11__components_cruds_Users_Index_vue___default.a, name: "users.index" }, { path: "/users/create", component: __WEBPACK_IMPORTED_MODULE_12__components_cruds_Users_Create_vue___default.a, name: "users.create" }, { path: "/users/:id", component: __WEBPACK_IMPORTED_MODULE_13__components_cruds_Users_Show_vue___default.a, name: "users.show" }, { path: "/users/:id/edit", component: __WEBPACK_IMPORTED_MODULE_14__components_cruds_Users_Edit_vue___default.a, name: "users.edit" }, { path: "/images", component: __WEBPACK_IMPORTED_MODULE_15__components_cruds_Images_Index_vue___default.a, name: "images.index" }, { path: "/images/create", component: __WEBPACK_IMPORTED_MODULE_16__components_cruds_Images_Create_vue___default.a, name: "images.create" }, { path: "/images/:id", component: __WEBPACK_IMPORTED_MODULE_17__components_cruds_Images_Show_vue___default.a, name: "images.show" }, { path: "/images/:id/edit", component: __WEBPACK_IMPORTED_MODULE_18__components_cruds_Images_Edit_vue___default.a, name: "images.edit" }];
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
-    mode: 'history',
-    base: '/admin',
+    mode: "history",
+    base: "/admin",
     routes: routes
 }));
 
@@ -28375,7 +28394,7 @@ var routes = [{ path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_2
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["default"]);
 
-var debug = "development" !== 'production';
+var debug = "development" !== "production";
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["default"].Store({
     modules: {
@@ -28435,41 +28454,41 @@ var actions = {
         var commit = _ref.commit,
             state = _ref.state;
 
-        commit('setLoading', true);
+        commit("setLoading", true);
 
-        axios.get('/api/v1/images').then(function (response) {
-            commit('setAll', response.data.data);
+        axios.get("/api/v1/images").then(function (response) {
+            commit("setAll", response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
-            commit('setError', message);
+            commit("setError", message);
             console.log(message);
         }).finally(function () {
-            commit('setLoading', false);
+            commit("setLoading", false);
         });
     },
     destroyData: function destroyData(_ref2, id) {
         var commit = _ref2.commit,
             state = _ref2.state;
 
-        axios.delete('/api/v1/images/' + id).then(function (response) {
-            commit('setAll', state.all.filter(function (item) {
+        axios.delete("/api/v1/images/" + id).then(function (response) {
+            commit("setAll", state.all.filter(function (item) {
                 return item.id != id;
             }));
         }).catch(function (error) {
             message = error.response.data.message || error.message;
-            commit('setError', message);
+            commit("setError", message);
             console.log(message);
         });
     },
     setQuery: function setQuery(_ref3, value) {
         var commit = _ref3.commit;
 
-        commit('setQuery', purify(value));
+        commit("setQuery", purify(value));
     },
     resetState: function resetState(_ref4) {
         var commit = _ref4.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -28525,7 +28544,6 @@ var getters = {
     loading: function loading(state) {
         return state.loading;
     }
-
 };
 
 var actions = {
@@ -28534,43 +28552,43 @@ var actions = {
             state = _ref.state,
             dispatch = _ref.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                if ((typeof fieldValue === "undefined" ? "undefined" : _typeof(fieldValue)) !== "object") {
                     params.set(fieldName, fieldValue);
                 } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                    if (fieldValue && _typeof(fieldValue[0]) !== "object") {
                         params.set(fieldName, fieldValue);
                     } else {
                         for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            params.set(fieldName + "[" + index + "]", fieldValue[index]);
                         }
                     }
                 }
             }
 
             if (state.item.image === null) {
-                params.delete('image');
+                params.delete("image");
             }
 
-            axios.post('/api/v1/images', params).then(function (response) {
-                commit('resetState');
+            axios.post("/api/v1/images", params).then(function (response) {
+                commit("resetState");
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
@@ -28579,44 +28597,44 @@ var actions = {
             state = _ref2.state,
             dispatch = _ref2.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
-            params.set('_method', 'PUT');
+            params.set("_method", "PUT");
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                if ((typeof fieldValue === "undefined" ? "undefined" : _typeof(fieldValue)) !== "object") {
                     params.set(fieldName, fieldValue);
                 } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                    if (fieldValue && _typeof(fieldValue[0]) !== "object") {
                         params.set(fieldName, fieldValue);
                     } else {
                         for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            params.set(fieldName + "[" + index + "]", fieldValue[index]);
                         }
                     }
                 }
             }
 
             if (state.item.image === null) {
-                params.delete('image');
+                params.delete("image");
             }
 
-            axios.post('/api/v1/images/' + state.item.id, params).then(function (response) {
-                commit('setItem', response.data.data);
+            axios.post("/api/v1/images/" + state.item.id, params).then(function (response) {
+                commit("setItem", response.data.data);
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
@@ -28624,34 +28642,34 @@ var actions = {
         var commit = _ref3.commit,
             dispatch = _ref3.dispatch;
 
-        axios.get('/api/v1/images/' + id).then(function (response) {
-            commit('setItem', response.data.data);
+        axios.get("/api/v1/images/" + id).then(function (response) {
+            commit("setItem", response.data.data);
         });
     },
     setName: function setName(_ref4, value) {
         var commit = _ref4.commit;
 
-        commit('setName', value);
+        commit("setName", value);
     },
     setImage: function setImage(_ref5, value) {
         var commit = _ref5.commit;
 
-        commit('setImage', value);
+        commit("setImage", value);
     },
     setOrder: function setOrder(_ref6, value) {
         var commit = _ref6.commit;
 
-        commit('setOrder', value);
+        commit("setOrder", value);
     },
     setStatus: function setStatus(_ref7, value) {
         var commit = _ref7.commit;
 
-        commit('setStatus', value);
+        commit("setStatus", value);
     },
     resetState: function resetState(_ref8) {
         var commit = _ref8.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -28728,41 +28746,41 @@ var actions = {
         var commit = _ref.commit,
             state = _ref.state;
 
-        commit('setLoading', true);
+        commit("setLoading", true);
 
-        axios.get('/api/v1/permissions').then(function (response) {
-            commit('setAll', response.data.data);
+        axios.get("/api/v1/permissions").then(function (response) {
+            commit("setAll", response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
-            commit('setError', message);
+            commit("setError", message);
             console.log(message);
         }).finally(function () {
-            commit('setLoading', false);
+            commit("setLoading", false);
         });
     },
     destroyData: function destroyData(_ref2, id) {
         var commit = _ref2.commit,
             state = _ref2.state;
 
-        axios.delete('/api/v1/permissions/' + id).then(function (response) {
-            commit('setAll', state.all.filter(function (item) {
+        axios.delete("/api/v1/permissions/" + id).then(function (response) {
+            commit("setAll", state.all.filter(function (item) {
                 return item.id != id;
             }));
         }).catch(function (error) {
             message = error.response.data.message || error.message;
-            commit('setError', message);
+            commit("setError", message);
             console.log(message);
         });
     },
     setQuery: function setQuery(_ref3, value) {
         var commit = _ref3.commit;
 
-        commit('setQuery', purify(value));
+        commit("setQuery", purify(value));
     },
     resetState: function resetState(_ref4) {
         var commit = _ref4.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -28815,7 +28833,6 @@ var getters = {
     loading: function loading(state) {
         return state.loading;
     }
-
 };
 
 var actions = {
@@ -28824,39 +28841,39 @@ var actions = {
             state = _ref.state,
             dispatch = _ref.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                if ((typeof fieldValue === "undefined" ? "undefined" : _typeof(fieldValue)) !== "object") {
                     params.set(fieldName, fieldValue);
                 } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                    if (fieldValue && _typeof(fieldValue[0]) !== "object") {
                         params.set(fieldName, fieldValue);
                     } else {
                         for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            params.set(fieldName + "[" + index + "]", fieldValue[index]);
                         }
                     }
                 }
             }
 
-            axios.post('/api/v1/permissions', params).then(function (response) {
-                commit('resetState');
+            axios.post("/api/v1/permissions", params).then(function (response) {
+                commit("resetState");
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
@@ -28865,40 +28882,40 @@ var actions = {
             state = _ref2.state,
             dispatch = _ref2.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
-            params.set('_method', 'PUT');
+            params.set("_method", "PUT");
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                if ((typeof fieldValue === "undefined" ? "undefined" : _typeof(fieldValue)) !== "object") {
                     params.set(fieldName, fieldValue);
                 } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                    if (fieldValue && _typeof(fieldValue[0]) !== "object") {
                         params.set(fieldName, fieldValue);
                     } else {
                         for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            params.set(fieldName + "[" + index + "]", fieldValue[index]);
                         }
                     }
                 }
             }
 
-            axios.post('/api/v1/permissions/' + state.item.id, params).then(function (response) {
-                commit('setItem', response.data.data);
+            axios.post("/api/v1/permissions/" + state.item.id, params).then(function (response) {
+                commit("setItem", response.data.data);
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
@@ -28906,19 +28923,19 @@ var actions = {
         var commit = _ref3.commit,
             dispatch = _ref3.dispatch;
 
-        axios.get('/api/v1/permissions/' + id).then(function (response) {
-            commit('setItem', response.data.data);
+        axios.get("/api/v1/permissions/" + id).then(function (response) {
+            commit("setItem", response.data.data);
         });
     },
     setTitle: function setTitle(_ref4, value) {
         var commit = _ref4.commit;
 
-        commit('setTitle', value);
+        commit("setTitle", value);
     },
     resetState: function resetState(_ref5) {
         var commit = _ref5.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -28955,7 +28972,7 @@ function initialState() {
     return {
         all: [],
         relationships: {
-            'permission': 'title'
+            permission: "title"
         },
         query: {},
         loading: false
@@ -28988,41 +29005,41 @@ var actions = {
         var commit = _ref.commit,
             state = _ref.state;
 
-        commit('setLoading', true);
+        commit("setLoading", true);
 
-        axios.get('/api/v1/roles').then(function (response) {
-            commit('setAll', response.data.data);
+        axios.get("/api/v1/roles").then(function (response) {
+            commit("setAll", response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
-            commit('setError', message);
+            commit("setError", message);
             console.log(message);
         }).finally(function () {
-            commit('setLoading', false);
+            commit("setLoading", false);
         });
     },
     destroyData: function destroyData(_ref2, id) {
         var commit = _ref2.commit,
             state = _ref2.state;
 
-        axios.delete('/api/v1/roles/' + id).then(function (response) {
-            commit('setAll', state.all.filter(function (item) {
+        axios.delete("/api/v1/roles/" + id).then(function (response) {
+            commit("setAll", state.all.filter(function (item) {
                 return item.id != id;
             }));
         }).catch(function (error) {
             message = error.response.data.message || error.message;
-            commit('setError', message);
+            commit("setError", message);
             console.log(message);
         });
     },
     setQuery: function setQuery(_ref3, value) {
         var commit = _ref3.commit;
 
-        commit('setQuery', purify(value));
+        commit("setQuery", purify(value));
     },
     resetState: function resetState(_ref4) {
         var commit = _ref4.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -29080,7 +29097,6 @@ var getters = {
     permissionsAll: function permissionsAll(state) {
         return state.permissionsAll;
     }
-
 };
 
 var actions = {
@@ -29089,47 +29105,47 @@ var actions = {
             state = _ref.state,
             dispatch = _ref.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                if ((typeof fieldValue === "undefined" ? "undefined" : _typeof(fieldValue)) !== "object") {
                     params.set(fieldName, fieldValue);
                 } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                    if (fieldValue && _typeof(fieldValue[0]) !== "object") {
                         params.set(fieldName, fieldValue);
                     } else {
                         for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            params.set(fieldName + "[" + index + "]", fieldValue[index]);
                         }
                     }
                 }
             }
 
             if (_.isEmpty(state.item.permission)) {
-                params.delete('permission');
+                params.delete("permission");
             } else {
                 for (var _index in state.item.permission) {
-                    params.set('permission[' + _index + ']', state.item.permission[_index].id);
+                    params.set("permission[" + _index + "]", state.item.permission[_index].id);
                 }
             }
 
-            axios.post('/api/v1/roles', params).then(function (response) {
-                commit('resetState');
+            axios.post("/api/v1/roles", params).then(function (response) {
+                commit("resetState");
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
@@ -29138,48 +29154,48 @@ var actions = {
             state = _ref2.state,
             dispatch = _ref2.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
-            params.set('_method', 'PUT');
+            params.set("_method", "PUT");
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                if ((typeof fieldValue === "undefined" ? "undefined" : _typeof(fieldValue)) !== "object") {
                     params.set(fieldName, fieldValue);
                 } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                    if (fieldValue && _typeof(fieldValue[0]) !== "object") {
                         params.set(fieldName, fieldValue);
                     } else {
                         for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            params.set(fieldName + "[" + index + "]", fieldValue[index]);
                         }
                     }
                 }
             }
 
             if (_.isEmpty(state.item.permission)) {
-                params.delete('permission');
+                params.delete("permission");
             } else {
                 for (var _index2 in state.item.permission) {
-                    params.set('permission[' + _index2 + ']', state.item.permission[_index2].id);
+                    params.set("permission[" + _index2 + "]", state.item.permission[_index2].id);
                 }
             }
 
-            axios.post('/api/v1/roles/' + state.item.id, params).then(function (response) {
-                commit('setItem', response.data.data);
+            axios.post("/api/v1/roles/" + state.item.id, params).then(function (response) {
+                commit("setItem", response.data.data);
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
@@ -29187,33 +29203,33 @@ var actions = {
         var commit = _ref3.commit,
             dispatch = _ref3.dispatch;
 
-        axios.get('/api/v1/roles/' + id).then(function (response) {
-            commit('setItem', response.data.data);
+        axios.get("/api/v1/roles/" + id).then(function (response) {
+            commit("setItem", response.data.data);
         });
 
-        dispatch('fetchPermissionsAll');
+        dispatch("fetchPermissionsAll");
     },
     fetchPermissionsAll: function fetchPermissionsAll(_ref4) {
         var commit = _ref4.commit;
 
-        axios.get('/api/v1/permissions').then(function (response) {
-            commit('setPermissionsAll', response.data.data);
+        axios.get("/api/v1/permissions").then(function (response) {
+            commit("setPermissionsAll", response.data.data);
         });
     },
     setTitle: function setTitle(_ref5, value) {
         var commit = _ref5.commit;
 
-        commit('setTitle', value);
+        commit("setTitle", value);
     },
     setPermission: function setPermission(_ref6, value) {
         var commit = _ref6.commit;
 
-        commit('setPermission', value);
+        commit("setPermission", value);
     },
     resetState: function resetState(_ref7) {
         var commit = _ref7.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -29256,7 +29272,7 @@ function initialState() {
     return {
         all: [],
         relationships: {
-            'role': 'title'
+            role: "title"
         },
         query: {},
         loading: false
@@ -29289,41 +29305,41 @@ var actions = {
         var commit = _ref.commit,
             state = _ref.state;
 
-        commit('setLoading', true);
+        commit("setLoading", true);
 
-        axios.get('/api/v1/users').then(function (response) {
-            commit('setAll', response.data.data);
+        axios.get("/api/v1/users").then(function (response) {
+            commit("setAll", response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
-            commit('setError', message);
+            commit("setError", message);
             console.log(message);
         }).finally(function () {
-            commit('setLoading', false);
+            commit("setLoading", false);
         });
     },
     destroyData: function destroyData(_ref2, id) {
         var commit = _ref2.commit,
             state = _ref2.state;
 
-        axios.delete('/api/v1/users/' + id).then(function (response) {
-            commit('setAll', state.all.filter(function (item) {
+        axios.delete("/api/v1/users/" + id).then(function (response) {
+            commit("setAll", state.all.filter(function (item) {
                 return item.id != id;
             }));
         }).catch(function (error) {
             message = error.response.data.message || error.message;
-            commit('setError', message);
+            commit("setError", message);
             console.log(message);
         });
     },
     setQuery: function setQuery(_ref3, value) {
         var commit = _ref3.commit;
 
-        commit('setQuery', purify(value));
+        commit("setQuery", purify(value));
     },
     resetState: function resetState(_ref4) {
         var commit = _ref4.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -29383,7 +29399,6 @@ var getters = {
     rolesAll: function rolesAll(state) {
         return state.rolesAll;
     }
-
 };
 
 var actions = {
@@ -29392,47 +29407,47 @@ var actions = {
             state = _ref.state,
             dispatch = _ref.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                if ((typeof fieldValue === "undefined" ? "undefined" : _typeof(fieldValue)) !== "object") {
                     params.set(fieldName, fieldValue);
                 } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                    if (fieldValue && _typeof(fieldValue[0]) !== "object") {
                         params.set(fieldName, fieldValue);
                     } else {
                         for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            params.set(fieldName + "[" + index + "]", fieldValue[index]);
                         }
                     }
                 }
             }
 
             if (_.isEmpty(state.item.role)) {
-                params.delete('role');
+                params.delete("role");
             } else {
                 for (var _index in state.item.role) {
-                    params.set('role[' + _index + ']', state.item.role[_index].id);
+                    params.set("role[" + _index + "]", state.item.role[_index].id);
                 }
             }
 
-            axios.post('/api/v1/users', params).then(function (response) {
-                commit('resetState');
+            axios.post("/api/v1/users", params).then(function (response) {
+                commit("resetState");
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
@@ -29441,48 +29456,48 @@ var actions = {
             state = _ref2.state,
             dispatch = _ref2.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
-            params.set('_method', 'PUT');
+            params.set("_method", "PUT");
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
-                if ((typeof fieldValue === 'undefined' ? 'undefined' : _typeof(fieldValue)) !== 'object') {
+                if ((typeof fieldValue === "undefined" ? "undefined" : _typeof(fieldValue)) !== "object") {
                     params.set(fieldName, fieldValue);
                 } else {
-                    if (fieldValue && _typeof(fieldValue[0]) !== 'object') {
+                    if (fieldValue && _typeof(fieldValue[0]) !== "object") {
                         params.set(fieldName, fieldValue);
                     } else {
                         for (var index in fieldValue) {
-                            params.set(fieldName + '[' + index + ']', fieldValue[index]);
+                            params.set(fieldName + "[" + index + "]", fieldValue[index]);
                         }
                     }
                 }
             }
 
             if (_.isEmpty(state.item.role)) {
-                params.delete('role');
+                params.delete("role");
             } else {
                 for (var _index2 in state.item.role) {
-                    params.set('role[' + _index2 + ']', state.item.role[_index2].id);
+                    params.set("role[" + _index2 + "]", state.item.role[_index2].id);
                 }
             }
 
-            axios.post('/api/v1/users/' + state.item.id, params).then(function (response) {
-                commit('setItem', response.data.data);
+            axios.post("/api/v1/users/" + state.item.id, params).then(function (response) {
+                commit("setItem", response.data.data);
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
@@ -29490,43 +29505,43 @@ var actions = {
         var commit = _ref3.commit,
             dispatch = _ref3.dispatch;
 
-        axios.get('/api/v1/users/' + id).then(function (response) {
-            commit('setItem', response.data.data);
+        axios.get("/api/v1/users/" + id).then(function (response) {
+            commit("setItem", response.data.data);
         });
 
-        dispatch('fetchRolesAll');
+        dispatch("fetchRolesAll");
     },
     fetchRolesAll: function fetchRolesAll(_ref4) {
         var commit = _ref4.commit;
 
-        axios.get('/api/v1/roles').then(function (response) {
-            commit('setRolesAll', response.data.data);
+        axios.get("/api/v1/roles").then(function (response) {
+            commit("setRolesAll", response.data.data);
         });
     },
     setName: function setName(_ref5, value) {
         var commit = _ref5.commit;
 
-        commit('setName', value);
+        commit("setName", value);
     },
     setEmail: function setEmail(_ref6, value) {
         var commit = _ref6.commit;
 
-        commit('setEmail', value);
+        commit("setEmail", value);
     },
     setPassword: function setPassword(_ref7, value) {
         var commit = _ref7.commit;
 
-        commit('setPassword', value);
+        commit("setPassword", value);
     },
     setRole: function setRole(_ref8, value) {
         var commit = _ref8.commit;
 
-        commit('setRole', value);
+        commit("setRole", value);
     },
     resetState: function resetState(_ref9) {
         var commit = _ref9.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -29575,7 +29590,7 @@ function initialState() {
     return {
         message: null,
         errors: null,
-        color: 'success'
+        color: "success"
     };
 }
 
@@ -29595,29 +29610,29 @@ var actions = {
     setMessage: function setMessage(_ref, message) {
         var commit = _ref.commit;
 
-        commit('setMessage', message);
+        commit("setMessage", message);
     },
     setErrors: function setErrors(_ref2, errors) {
         var commit = _ref2.commit;
 
-        commit('setErrors', errors);
+        commit("setErrors", errors);
     },
     setColor: function setColor(_ref3, color) {
         var commit = _ref3.commit;
 
-        commit('setColor', color);
+        commit("setColor", color);
     },
     setAlert: function setAlert(_ref4, data) {
         var commit = _ref4.commit;
 
-        commit('setMessage', data.message || null);
-        commit('setErrors', data.errors || null);
-        commit('setColor', data.color || null);
+        commit("setMessage", data.message || null);
+        commit("setErrors", data.errors || null);
+        commit("setColor", data.color || null);
     },
     resetState: function resetState(_ref5) {
         var commit = _ref5.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -29629,7 +29644,7 @@ var mutations = {
         state.errors = errors;
     },
     setColor: function setColor(state, color) {
-        state.color = color || 'success';
+        state.color = color || "success";
     },
     resetState: function resetState(state) {
         state = Object.assign(state, initialState());
@@ -29680,8 +29695,8 @@ var actions = {
             state = _ref.state,
             dispatch = _ref.dispatch;
 
-        commit('setLoading', true);
-        dispatch('Alert/resetState', null, { root: true });
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = {
@@ -29690,40 +29705,40 @@ var actions = {
                 new_password_confirmation: state.new_password_confirmation
             };
 
-            axios.post('/api/v1/change-password', params).then(function (response) {
-                commit('resetState');
+            axios.post("/api/v1/change-password", params).then(function (response) {
+                commit("resetState");
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);
             }).finally(function () {
-                commit('setLoading', false);
+                commit("setLoading", false);
             });
         });
     },
     setCurrentPassword: function setCurrentPassword(_ref2, value) {
         var commit = _ref2.commit;
 
-        commit('setCurrentPassword', value);
+        commit("setCurrentPassword", value);
     },
     setNewPassword: function setNewPassword(_ref3, value) {
         var commit = _ref3.commit;
 
-        commit('setNewPassword', value);
+        commit("setNewPassword", value);
     },
     setNewPasswordConfirmation: function setNewPasswordConfirmation(_ref4, value) {
         var commit = _ref4.commit;
 
-        commit('setNewPasswordConfirmation', value);
+        commit("setNewPasswordConfirmation", value);
     },
     resetState: function resetState(_ref5) {
         var commit = _ref5.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 
@@ -29776,8 +29791,8 @@ var actions = {
         var commit = _ref.commit;
 
         return new Promise(function (resolve, reject) {
-            axios.get('/api/v1/rules').then(function (response) {
-                commit('setRules', response.data.data);
+            axios.get("/api/v1/rules").then(function (response) {
+                commit("setRules", response.data.data);
                 resolve();
             }).catch(function (error) {
                 message = error.response.data.message || error.message;
@@ -29789,7 +29804,7 @@ var actions = {
     resetState: function resetState(_ref2) {
         var commit = _ref2.commit;
 
-        commit('resetState');
+        commit("resetState");
     }
 };
 

@@ -19,37 +19,37 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-    data() {
-        return {
-            // Code...
-        }
-    },
-    computed: {
-        ...mapGetters('Alert', ['message', 'errors', 'color'])
-    },
-    created() {
-        // Code...
-    },
-    destroyed() {
-        this.resetState()
-    },
-    watch: {
-        "$route.params.id": function() {
-            this.resetState()
-        }
-    },
-    methods: {
-        ...mapActions('Alert', ['resetState'])
+  data() {
+    return {
+      // Code...
+    };
+  },
+  computed: {
+    ...mapGetters("Alert", ["message", "errors", "color"])
+  },
+  created() {
+    // Code...
+  },
+  destroyed() {
+    this.resetState();
+  },
+  watch: {
+    "$route.params.id": function() {
+      this.resetState();
     }
-}
+  },
+  methods: {
+    ...mapActions("Alert", ["resetState"])
+  }
+};
 </script>
 
 
 <style scoped>
 .row-alert {
-    padding: 10px;
+  padding: 10px;
 }
 </style>

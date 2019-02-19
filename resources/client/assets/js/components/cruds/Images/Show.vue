@@ -55,36 +55,35 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-    data() {
-        return {
-            // Code...
-        }
-    },
-    created() {
-        this.fetchData(this.$route.params.id)
-    },
-    destroyed() {
-        this.resetState()
-    },
-    computed: {
-        ...mapGetters('ImagesSingle', ['item'])
-    },
-    watch: {
-        "$route.params.id": function() {
-            this.resetState()
-            this.fetchData(this.$route.params.id)
-        }
-    },
-    methods: {
-        ...mapActions('ImagesSingle', ['fetchData', 'resetState'])
+  data() {
+    return {
+      // Code...
+    };
+  },
+  created() {
+    this.fetchData(this.$route.params.id);
+  },
+  destroyed() {
+    this.resetState();
+  },
+  computed: {
+    ...mapGetters("ImagesSingle", ["item"])
+  },
+  watch: {
+    "$route.params.id": function() {
+      this.resetState();
+      this.fetchData(this.$route.params.id);
     }
-}
+  },
+  methods: {
+    ...mapActions("ImagesSingle", ["fetchData", "resetState"])
+  }
+};
 </script>
 
 
 <style scoped>
-
 </style>

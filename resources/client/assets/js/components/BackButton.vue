@@ -7,23 +7,22 @@
 
 <script>
 export default {
-    data() {
-        return {
-            // Code...
-        }
-    },
-    created() {
-        // Code...
-    },
-    methods: {
-        routerBack() {
-            this.$router.go(-1)
-        }
+  data() {
+    return {
+      // Code...
+    };
+  },
+  created() {
+    // Code...
+  },
+  methods: {
+    routerBack() {
+      this.$router.go(-1);
     }
-}
+  }
+};
 </script>
 
 
 <style scoped>
-
 </style>

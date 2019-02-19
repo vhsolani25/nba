@@ -1,81 +1,87 @@
 function initialState() {
     return {
         all: [],
-        relationships: {
-            
-        },
+        relationships: {},
         query: {},
         loading: false
-    }
+    };
 }
 
 const getters = {
     data: state => {
-        let rows = state.all
+        let rows = state.all;
 
         if (state.query.sort) {
-            rows = _.orderBy(state.all, state.query.sort, state.query.order)
+            rows = _.orderBy(state.all, state.query.sort, state.query.order);
         }
 
-        return rows.slice(state.query.offset, state.query.offset + state.query.limit)
+        return rows.slice(
+            state.query.offset,
+            state.query.offset + state.query.limit
+        );
     },
-    total:         state => state.all.length,
-    loading:       state => state.loading,
+    total: state => state.all.length,
+    loading: state => state.loading,
     relationships: state => state.relationships
-}
+};
 
 const actions = {
     fetchData({ commit, state }) {
-        commit('setLoading', true)
+        commit("setLoading", true);
 
-        axios.get('/api/v1/images')
+        axios
+            .get("/api/v1/images")
             .then(response => {
-                commit('setAll', response.data.data)
+                commit("setAll", response.data.data);
             })
             .catch(error => {
-                message = error.response.data.message || error.message
-                commit('setError', message)
-                console.log(message)
+                message = error.response.data.message || error.message;
+                commit("setError", message);
+                console.log(message);
             })
             .finally(() => {
-                commit('setLoading', false)
-            })
+                commit("setLoading", false);
+            });
     },
     destroyData({ commit, state }, id) {
-        axios.delete('/api/v1/images/' + id)
+        axios
+            .delete("/api/v1/images/" + id)
             .then(response => {
-                commit('setAll', state.all.filter((item) => {
-                    return item.id != id
-                }))
+                commit(
+                    "setAll",
+                    state.all.filter(item => {
+                        return item.id != id;
+                    })
+                );
             })
             .catch(error => {
-                message = error.response.data.message || error.message
-                commit('setError', message)
-                console.log(message)
-            })
+                message = error.response.data.message || error.message;
+                commit("setError", message);
+                console.log(message);
+            });
     },
     setQuery({ commit }, value) {
-        commit('setQuery', purify(value))
+        commit("setQuery", purify(value));
     },
     resetState({ commit }) {
-        commit('resetState')
+        commit("resetState");
     }
-}
+};
 
 const mutations = {
     setAll(state, items) {
-        state.all = items
+        state.all = items;
     },
     setLoading(state, loading) {
-        state.loading = loading
+        state.loading = loading;
     },
     setQuery(state, query) {
-        state.query = query
+        state.query = query;
     },
     resetState(state) {
-        state = Object.assign(state, initialState())
+        state = Object.assign(state, initialState());
     }
-}
+};
 
 export default {
     namespaced: true,
@@ -83,4 +89,4 @@ export default {
     getters,
     actions,
     mutations
-}
+};

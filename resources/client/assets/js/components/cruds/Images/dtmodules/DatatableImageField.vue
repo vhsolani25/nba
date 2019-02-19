@@ -4,7 +4,7 @@
 
 
 <script>
-    export default {
-        props: ['row'],
-    }
+export default {
+  props: ["row"]
+};
 </script>

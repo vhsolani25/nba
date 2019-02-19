@@ -78,48 +78,58 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-    data() {
-        return {
-            // Code...
-        }
+  data() {
+    return {
+      // Code...
+    };
+  },
+  computed: {
+    ...mapGetters("ChangePassword", [
+      "current_password",
+      "new_password",
+      "new_password_confirmation",
+      "loading"
+    ])
+  },
+  created() {
+    // Code...
+  },
+  destroyed() {
+    this.resetState();
+  },
+  methods: {
+    ...mapActions("ChangePassword", [
+      "storeData",
+      "resetState",
+      "setCurrentPassword",
+      "setNewPassword",
+      "setNewPasswordConfirmation"
+    ]),
+    updateCurrentPassword(e) {
+      this.setCurrentPassword(e.target.value);
     },
-    computed: {
-        ...mapGetters('ChangePassword', ['current_password', 'new_password', 'new_password_confirmation', 'loading'])
+    updateNewPassword(e) {
+      this.setNewPassword(e.target.value);
     },
-    created() {
-        // Code...
+    updateNewPasswordConfirmation(e) {
+      this.setNewPasswordConfirmation(e.target.value);
     },
-    destroyed() {
-        this.resetState();
-    },
-    methods: {
-        ...mapActions('ChangePassword', ['storeData', 'resetState', 'setCurrentPassword', 'setNewPassword', 'setNewPasswordConfirmation']),
-        updateCurrentPassword(e) {
-            this.setCurrentPassword(e.target.value)
-        },
-        updateNewPassword(e) {
-            this.setNewPassword(e.target.value)
-        },
-        updateNewPasswordConfirmation(e) {
-            this.setNewPasswordConfirmation(e.target.value)
-        },
-        submitForm() {
-            this.storeData()
-                .then(() => {
-                    this.$eventHub.$emit('update-success')
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
-        }
+    submitForm() {
+      this.storeData()
+        .then(() => {
+          this.$eventHub.$emit("update-success");
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
-}
+  }
+};
 </script>
 
 
 <style scoped>
-
 </style>

@@ -107,8 +107,7 @@ class Image extends Model implements HasMedia
             return null;
         }
 
-        return '<imge src="' . $file->getFullUrl() . '" target="_blank" />';
-        //return '<a href="' . $file->getFullUrl() . '" target="_blank">' . $file->file_name . '</a>';
+        return $file->getFullUrl();
     }
 
     /**

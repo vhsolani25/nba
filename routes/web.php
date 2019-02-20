@@ -22,21 +22,3 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/{any}', 'HomeController@index')->where('any', '.*');
 });
-
-// Route::get('storage/{id}/{image}', function ($id, $image = null) {
-
-//     $filePath = storage_path() . '/app/public/' . $id . '/' . $image;
-
-//     if (file_exists($filePath)) {
-//         $response = response()->download($filePath);
-
-//         if (ob_get_length()) {
-//             ob_end_clean();
-//         }
-
-//         return $response;
-//     }
-
-//     return response()->make('', 404);
-
-// })->name('images.assets');

@@ -123,7 +123,7 @@ export default {
     ...mapGetters("ImagesSingle", ["item", "loading"])
   },
   created() {
-    // Code ...
+    this.item.status = "1";
   },
   destroyed() {
     this.resetState();

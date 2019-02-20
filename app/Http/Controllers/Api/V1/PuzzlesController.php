@@ -10,7 +10,7 @@ class PuzzlesController extends Controller
 {
     public function index()
     {
-        $images = Image::with([])->get();
+        $images = Image::where('status', 1)->get();
 
         //dd($images);
 

@@ -467,7 +467,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item", "loading"])),
   created: function created() {
-    // Code ...
+    this.item.status = "1";
   },
   destroyed: function destroyed() {
     this.resetState();

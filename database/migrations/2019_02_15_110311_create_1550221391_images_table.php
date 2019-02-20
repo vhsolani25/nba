@@ -7,19 +7,16 @@ class Create1550221391ImagesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        if(! Schema::hasTable('images')) {
+        if (!Schema::hasTable('images')) {
             Schema::create('images', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->nullable();
-                $table->string('image')->nullable();
                 $table->integer('order')->nullable()->unsigned();
                 $table->string('status')->nullable();
-                
+
                 $table->timestamps();
                 $table->softDeletes();
 
@@ -30,8 +27,6 @@ class Create1550221391ImagesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

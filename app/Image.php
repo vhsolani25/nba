@@ -60,7 +60,7 @@ class Image extends Model implements HasMedia
     public static function storeValidation($request)
     {
         return [
-            'name' => 'min:5|max:50|required',
+            'name' => 'max:50|required',
             'image' => 'file|required',
             'order' => 'integer|min:1|max:11|required',
             'status' => 'required',
@@ -77,7 +77,7 @@ class Image extends Model implements HasMedia
     public static function updateValidation($request)
     {
         return [
-            'name' => 'min:5|max:50|required',
+            'name' => 'max:50|required',
             'image' => 'nullable',
             'order' => 'integer|min:1|max:11|required',
             'status' => 'required',

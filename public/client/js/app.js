@@ -26789,6 +26789,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__["default"]);
 Vue.component("back-buttton", __webpack_require__("./resources/client/assets/js/components/BackButton.vue"));
 Vue.component("bootstrap-alert", __webpack_require__("./resources/client/assets/js/components/Alert.vue"));
 Vue.component("event-hub", __webpack_require__("./resources/client/assets/js/components/EventHub.vue"));
+
 Vue.component("vue-button-spinner", __webpack_require__("./resources/client/assets/js/components/VueButtonSpinner.vue"));
 Vue.component("v-select", __WEBPACK_IMPORTED_MODULE_4_vue_select___default.a);
 Vue.component("vue-ckeditor", __WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__["default"]);
@@ -28553,7 +28554,6 @@ var actions = {
             state = _ref.state,
             dispatch = _ref.dispatch;
 
-        console.log('storeData');
         commit("setLoading", true);
         dispatch("Alert/resetState", null, { root: true });
 

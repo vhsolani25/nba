@@ -16,7 +16,7 @@
 
     <event-hub></event-hub>
     <router-view></router-view>
-
+    @yield('content')
     </div>
 </div>
 

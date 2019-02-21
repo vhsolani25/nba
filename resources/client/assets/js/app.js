@@ -86,6 +86,7 @@ Vue.use(VueCkeditor);
 Vue.component("back-buttton", require("./components/BackButton.vue"));
 Vue.component("bootstrap-alert", require("./components/Alert.vue"));
 Vue.component("event-hub", require("./components/EventHub.vue"));
+
 Vue.component(
     "vue-button-spinner",
     require("./components/VueButtonSpinner.vue")

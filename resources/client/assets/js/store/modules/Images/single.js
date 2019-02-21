@@ -19,7 +19,6 @@ const getters = {
 
 const actions = {
     storeData({ commit, state, dispatch }) {
-        console.log('storeData');
         commit("setLoading", true);
         dispatch("Alert/resetState", null, { root: true });
 

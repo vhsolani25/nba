@@ -61,8 +61,8 @@ class Image extends Model implements HasMedia
     {
         return [
             'name' => 'max:50|required',
-            'image' => 'file|required',
-            'order' => 'integer|min:1|max:11|required',
+            'image' => 'file|required|max:10000',
+            'order' => 'integer|min:1|required',
             'status' => 'required',
         ];
     }
@@ -78,8 +78,8 @@ class Image extends Model implements HasMedia
     {
         return [
             'name' => 'max:50|required',
-            'image' => 'nullable',
-            'order' => 'integer|min:1|max:11|required',
+            'image' => 'nullable|max:10000',
+            'order' => 'integer|min:1|required',
             'status' => 'required',
         ];
     }

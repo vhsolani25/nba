@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Gate;
 class ImagesController extends Controller
 {
     /**
-     * Image List
+     * Image List.
      *
      * @return mixed
      */
@@ -21,9 +21,10 @@ class ImagesController extends Controller
     }
 
     /**
-     * View Image
+     * View Image.
      *
      * @param int|string $id
+     *
      * @return mixed
      */
     public function show($id)
@@ -38,9 +39,10 @@ class ImagesController extends Controller
     }
 
     /**
-     * Store Image
+     * Store Image.
      *
      * @param StoreImagesRequest $request
+     *
      * @return mixed
      */
     public function store(StoreImagesRequest $request)
@@ -61,10 +63,11 @@ class ImagesController extends Controller
     }
 
     /**
-     * Update Image
+     * Update Image.
      *
      * @param UpdateImagesRequest $request
-     * @param int|string $id
+     * @param int|string          $id
+     *
      * @return mixed
      */
     public function update(UpdateImagesRequest $request, $id)
@@ -89,9 +92,10 @@ class ImagesController extends Controller
     }
 
     /**
-     * Destroy Image
+     * Destroy Image.
      *
      * @param int|string $id
+     *
      * @return mixed
      */
     public function destroy($id)

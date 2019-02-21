@@ -173,7 +173,7 @@ export default {
           this.$eventHub.$emit("create-success");
         })
         .catch(error => {
-          console.error(error);
+          console.log(error.response)
         });
     }
   }

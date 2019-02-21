@@ -19,11 +19,15 @@ const getters = {
 
 const actions = {
     storeData({ commit, state, dispatch }) {
+        console.log('storeData');
         commit("setLoading", true);
         dispatch("Alert/resetState", null, { root: true });
 
         return new Promise((resolve, reject) => {
             let params = new FormData();
+            let settings = {
+                headers: { 'content-type': 'multipart/form-data' }
+            };
 
             for (let fieldName in state.item) {
                 let fieldValue = state.item[fieldName];
@@ -42,7 +46,6 @@ const actions = {
                     }
                 }
             }
-
             if (state.item.image === null) {
                 params.delete("image");
             }
@@ -155,6 +158,7 @@ const mutations = {
         state.item.name = value;
     },
     setImage(state, value) {
+        console.log(value);
         state.item.image = value;
     },
     setOrder(state, value) {

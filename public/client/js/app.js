@@ -512,7 +512,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         _this2.$router.push({ name: "images.index" });
         _this2.$eventHub.$emit("create-success");
       }).catch(function (error) {
-        console.error(error);
+        console.log(error.response);
       });
     }
   })
@@ -28553,11 +28553,15 @@ var actions = {
             state = _ref.state,
             dispatch = _ref.dispatch;
 
+        console.log('storeData');
         commit("setLoading", true);
         dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
             var params = new FormData();
+            var settings = {
+                headers: { 'content-type': 'multipart/form-data' }
+            };
 
             for (var fieldName in state.item) {
                 var fieldValue = state.item[fieldName];
@@ -28573,7 +28577,6 @@ var actions = {
                     }
                 }
             }
-
             if (state.item.image === null) {
                 params.delete("image");
             }
@@ -28682,6 +28685,7 @@ var mutations = {
         state.item.name = value;
     },
     setImage: function setImage(state, value) {
+        console.log(value);
         state.item.image = value;
     },
     setOrder: function setOrder(state, value) {

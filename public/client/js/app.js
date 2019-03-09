@@ -268,6 +268,145 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/ImageUploader.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            isDragging: false,
+            dragCount: 0,
+            files: [],
+            images: []
+        };
+    },
+    methods: {
+        OnDragEnter: function OnDragEnter(e) {
+            e.preventDefault();
+
+            this.dragCount++;
+            this.isDragging = true;
+
+            return false;
+        },
+        OnDragLeave: function OnDragLeave(e) {
+            e.preventDefault();
+            this.dragCount--;
+
+            if (this.dragCount <= 0) this.isDragging = false;
+        },
+        onInputChange: function onInputChange(e) {
+            var _this = this;
+
+            var files = e.target.files;
+
+            Array.from(files).forEach(function (file) {
+                return _this.addImage(file);
+            });
+        },
+        onDrop: function onDrop(e) {
+            var _this2 = this;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            this.isDragging = false;
+
+            var files = e.dataTransfer.files;
+
+            Array.from(files).forEach(function (file) {
+                return _this2.addImage(file);
+            });
+        },
+        addImage: function addImage(file) {
+            var _this3 = this;
+
+            if (!file.type.match('image.*')) {
+                this.$toastr.e(file.name + ' is not an image');
+                return;
+            }
+
+            this.files.push(file);
+
+            var img = new Image(),
+                reader = new FileReader();
+
+            reader.onload = function (e) {
+                return _this3.images.push(e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        },
+        getFileSize: function getFileSize(size) {
+            var fSExt = ['Bytes', 'KB', 'MB', 'GB'];
+            var i = 0;
+
+            while (size > 900) {
+                size /= 1024;
+                i++;
+            }
+
+            return Math.round(size * 100) / 100 + ' ' + fSExt[i];
+        },
+        upload: function upload() {
+            var _this4 = this;
+
+            var formData = new FormData();
+
+            this.files.forEach(function (file) {
+                formData.append('images[]', file, file.name);
+            });
+
+            axios.post('/images-upload', formData).then(function (response) {
+                _this4.$toastr.s('All images uplaoded successfully');
+                _this4.images = [];
+                _this4.files = [];
+            });
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/VueButtonSpinner.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -455,16 +594,32 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
+// import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+// import vueDropzone from "vue2-dropzone";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      // Code...
+      // dropOptions: {
+      // url: "/api/v1/images/",
+      //         maxFilesize: 5, // MB
+      //         maxFiles: 4,
+      //         chunking: true,
+      //         chunkSize: 500, // Bytes
+      //         thumbnailWidth: 150, // px
+      //         thumbnailHeight: 150,
+      //         addRemoveLinks: true,
+      //         headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"}
+      // }
     };
   },
-
+  components: {
+    //vueDropzone
+  },
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item", "loading"])),
   created: function created() {
     this.item.status = "1";
@@ -2743,7 +2898,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2759,6 +2914,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f73e774\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/ImageUploader.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.uploader[data-v-5f73e774] {\n  width: 100%;\n  background: #2196F3;\n  color: #fff;\n  padding: 40px 15px;\n  text-align: center;\n  border-radius: 10px;\n  border: 3px dashed #fff;\n  font-size: 20px;\n  position: relative;\n}\n.uploader.dragging[data-v-5f73e774] {\n    background: #fff;\n    color: #2196F3;\n    border: 3px dashed #2196F3;\n}\n.uploader.dragging .file-input label[data-v-5f73e774] {\n      background: #2196F3;\n      color: #fff;\n}\n.uploader i[data-v-5f73e774] {\n    font-size: 85px;\n}\n.uploader .file-input[data-v-5f73e774] {\n    width: 200px;\n    margin: auto;\n    height: 68px;\n    position: relative;\n}\n.uploader .file-input label[data-v-5f73e774],\n    .uploader .file-input input[data-v-5f73e774] {\n      background: #fff;\n      color: #2196F3;\n      width: 100%;\n      position: absolute;\n      left: 0;\n      top: 0;\n      padding: 10px;\n      border-radius: 4px;\n      margin-top: 7px;\n      cursor: pointer;\n}\n.uploader .file-input input[data-v-5f73e774] {\n      opacity: 0;\n      z-index: -2;\n}\n.uploader .images-preview[data-v-5f73e774] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    margin-top: 20px;\n}\n.uploader .images-preview .img-wrapper[data-v-5f73e774] {\n      width: 160px;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: column;\n              flex-direction: column;\n      margin: 10px;\n      height: 150px;\n      -webkit-box-pack: justify;\n          -ms-flex-pack: justify;\n              justify-content: space-between;\n      background: #fff;\n      -webkit-box-shadow: 5px 5px 20px #3e3737;\n              box-shadow: 5px 5px 20px #3e3737;\n}\n.uploader .images-preview .img-wrapper img[data-v-5f73e774] {\n        max-height: 105px;\n}\n.uploader .images-preview .details[data-v-5f73e774] {\n      font-size: 12px;\n      background: #fff;\n      color: #000;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: column;\n              flex-direction: column;\n      -webkit-box-align: self-start;\n          -ms-flex-align: self-start;\n              align-items: self-start;\n      padding: 3px 6px;\n}\n.uploader .images-preview .details .name[data-v-5f73e774] {\n        overflow: hidden;\n        height: 18px;\n}\n.uploader .upload-control[data-v-5f73e774] {\n    position: absolute;\n    width: 100%;\n    background: #fff;\n    top: 0;\n    left: 0;\n    border-top-left-radius: 7px;\n    border-top-right-radius: 7px;\n    padding: 10px;\n    padding-bottom: 4px;\n    text-align: right;\n}\n.uploader .upload-control button[data-v-5f73e774], .uploader .upload-control label[data-v-5f73e774] {\n      background: #2196F3;\n      border: 2px solid #03A9F4;\n      border-radius: 3px;\n      color: #fff;\n      font-size: 15px;\n      cursor: pointer;\n}\n.uploader .upload-control label[data-v-5f73e774] {\n      padding: 2px 5px;\n      margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -24721,129 +24891,136 @@ var render = function() {
                     _vm._v(" "),
                     _c("bootstrap-alert"),
                     _vm._v(" "),
-                    _c("div", { staticClass: "box-body" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Name *")
+                    _c(
+                      "div",
+                      { staticClass: "box-body" },
+                      [
+                        _c("image-uploader"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Name *")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              name: "name",
+                              placeholder: "Enter Name *"
+                            },
+                            domProps: { value: _vm.item.name },
+                            on: { input: _vm.updateName }
+                          })
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "name",
-                            placeholder: "Enter Name *"
-                          },
-                          domProps: { value: _vm.item.name },
-                          on: { input: _vm.updateName }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "image" } }, [
-                          _vm._v("Image *")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: { type: "file" },
-                          on: { change: _vm.updateImage }
-                        }),
-                        _vm._v(" "),
-                        _vm.item.image
-                          ? _c("ul", { staticClass: "list-unstyled" }, [
-                              _c("li", [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(
-                                      _vm.item.image.name ||
-                                        _vm.item.image.file_name
-                                    ) +
-                                    "\n                                        "
-                                ),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-xs btn-danger",
-                                    attrs: { type: "button" },
-                                    on: { click: _vm.removeImage }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                            Remove file\n                                        "
-                                    )
-                                  ]
-                                )
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "image" } }, [
+                            _vm._v("Image *")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "file" },
+                            on: { change: _vm.updateImage }
+                          }),
+                          _vm._v(" "),
+                          _vm.item.image
+                            ? _c("ul", { staticClass: "list-unstyled" }, [
+                                _c("li", [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(
+                                        _vm.item.image.name ||
+                                          _vm.item.image.file_name
+                                      ) +
+                                      "\n                                        "
+                                  ),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-xs btn-danger",
+                                      attrs: { type: "button" },
+                                      on: { click: _vm.removeImage }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                            Remove file\n                                        "
+                                      )
+                                    ]
+                                  )
+                                ])
                               ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "order" } }, [
+                            _vm._v("Order *")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              min: "1",
+                              max: "11",
+                              name: "order",
+                              placeholder: "Enter Order *"
+                            },
+                            domProps: { value: _vm.item.order },
+                            on: { input: _vm.updateOrder }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "status" } }, [
+                            _vm._v("Status")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "radio" }, [
+                            _c("label", [
+                              _c("input", {
+                                attrs: { type: "radio", name: "status" },
+                                domProps: {
+                                  value: _vm.item.status,
+                                  checked: _vm.item.status === "1"
+                                },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.updateStatus("1")
+                                  }
+                                }
+                              }),
+                              _vm._v(
+                                "\n                                        Yes\n                                    "
+                              )
                             ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "order" } }, [
-                          _vm._v("Order *")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "number",
-                            min: "1",
-                            max: "11",
-                            name: "order",
-                            placeholder: "Enter Order *"
-                          },
-                          domProps: { value: _vm.item.order },
-                          on: { input: _vm.updateOrder }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "status" } }, [
-                          _vm._v("Status")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "radio" }, [
-                          _c("label", [
-                            _c("input", {
-                              attrs: { type: "radio", name: "status" },
-                              domProps: {
-                                value: _vm.item.status,
-                                checked: _vm.item.status === "1"
-                              },
-                              on: {
-                                change: function($event) {
-                                  return _vm.updateStatus("1")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "radio" }, [
+                            _c("label", [
+                              _c("input", {
+                                attrs: { type: "radio", name: "status" },
+                                domProps: {
+                                  value: _vm.item.status,
+                                  checked: _vm.item.status === "0"
+                                },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.updateStatus("0")
+                                  }
                                 }
-                              }
-                            }),
-                            _vm._v(
-                              "\n                                        Yes\n                                    "
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "radio" }, [
-                          _c("label", [
-                            _c("input", {
-                              attrs: { type: "radio", name: "status" },
-                              domProps: {
-                                value: _vm.item.status,
-                                checked: _vm.item.status === "0"
-                              },
-                              on: {
-                                change: function($event) {
-                                  return _vm.updateStatus("0")
-                                }
-                              }
-                            }),
-                            _vm._v(
-                              "\n                                        No\n                                    "
-                            )
+                              }),
+                              _vm._v(
+                                "\n                                        No\n                                    "
+                              )
+                            ])
                           ])
                         ])
-                      ])
-                    ]),
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -24984,6 +25161,129 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-58c7cd95", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5f73e774\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/ImageUploader.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "uploader",
+      class: { dragging: _vm.isDragging },
+      on: {
+        dragenter: _vm.OnDragEnter,
+        dragleave: _vm.OnDragLeave,
+        dragover: function($event) {
+          $event.preventDefault()
+        },
+        drop: _vm.onDrop
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.images.length,
+              expression: "images.length"
+            }
+          ],
+          staticClass: "upload-control"
+        },
+        [
+          _c("label", { attrs: { for: "file" } }, [_vm._v("Select a file")]),
+          _vm._v(" "),
+          _c("button", { on: { click: _vm.upload } }, [_vm._v("Upload")])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.images.length,
+              expression: "!images.length"
+            }
+          ]
+        },
+        [
+          _c("i", { staticClass: "fa fa-cloud-upload" }),
+          _vm._v(" "),
+          _c("p", [_vm._v("Drag your images here")]),
+          _vm._v(" "),
+          _c("div", [_vm._v("OR")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "file-input" }, [
+            _c("label", { attrs: { for: "file" } }, [_vm._v("Select a file")]),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { type: "file", id: "file", multiple: "" },
+              on: { change: _vm.onInputChange }
+            })
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.images.length,
+              expression: "images.length"
+            }
+          ],
+          staticClass: "images-preview"
+        },
+        _vm._l(_vm.images, function(image, index) {
+          return _c("div", { key: index, staticClass: "img-wrapper" }, [
+            _c("img", {
+              attrs: { src: image, alt: "Image Uplaoder " + index }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "details" }, [
+              _c("span", {
+                staticClass: "name",
+                domProps: { textContent: _vm._s(_vm.files[index].name) }
+              }),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "size",
+                domProps: {
+                  textContent: _vm._s(_vm.getFileSize(_vm.files[index].size))
+                }
+              })
+            ])
+          ])
+        }),
+        0
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5f73e774", module.exports)
   }
 }
 
@@ -26414,6 +26714,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f73e774\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/ImageUploader.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f73e774\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/ImageUploader.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("7b691995", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f73e774\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ImageUploader.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f73e774\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ImageUploader.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5faec504\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/dtmodules/DatatableActions.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26789,6 +27116,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__["default"]);
 Vue.component("back-buttton", __webpack_require__("./resources/client/assets/js/components/BackButton.vue"));
 Vue.component("bootstrap-alert", __webpack_require__("./resources/client/assets/js/components/Alert.vue"));
 Vue.component("event-hub", __webpack_require__("./resources/client/assets/js/components/EventHub.vue"));
+Vue.component("image-uploader", __webpack_require__("./resources/client/assets/js/components/ImageUploader.vue"));
 
 Vue.component("vue-button-spinner", __webpack_require__("./resources/client/assets/js/components/VueButtonSpinner.vue"));
 Vue.component("v-select", __WEBPACK_IMPORTED_MODULE_4_vue_select___default.a);
@@ -27039,6 +27367,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-e6de46a4", Component.options)
   } else {
     hotAPI.reload("data-v-e6de46a4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/components/ImageUploader.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f73e774\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/ImageUploader.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/ImageUploader.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5f73e774\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/ImageUploader.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-5f73e774"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/assets/js/components/ImageUploader.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5f73e774", Component.options)
+  } else {
+    hotAPI.reload("data-v-5f73e774", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -28411,7 +28791,7 @@ var debug = "development" !== "production";
         ImagesIndex: __WEBPACK_IMPORTED_MODULE_11__modules_Images__["a" /* default */],
         ImagesSingle: __WEBPACK_IMPORTED_MODULE_12__modules_Images_single__["a" /* default */]
     },
-    strict: debug
+    strict: false
 }));
 
 /***/ }),

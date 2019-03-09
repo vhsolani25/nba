@@ -60,10 +60,10 @@ class Image extends Model implements HasMedia
     public static function storeValidation($request)
     {
         return [
-            'name' => 'max:50|required',
-            'image' => 'image|mimes:jpg,jpeg,png|required|max:20000',
-            'order' => 'integer|min:1|required|unique:images,order',
-            'status' => 'required',
+            // 'name' => 'max:50|required',
+            // 'image' => 'image|mimes:jpg,jpeg,png|required|max:20000',
+            // 'order' => 'integer|min:1|required|unique:images,order',
+            // 'status' => 'required',
         ];
     }
 

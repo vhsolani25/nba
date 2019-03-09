@@ -14,6 +14,7 @@ import ImagesSingle from "./modules/Images/single";
 
 Vue.use(Vuex);
 
+
 const debug = process.env.NODE_ENV !== "production";
 
 export default new Vuex.Store({
@@ -30,5 +31,5 @@ export default new Vuex.Store({
         ImagesIndex,
         ImagesSingle
     },
-    strict: debug
+    strict: false
 });

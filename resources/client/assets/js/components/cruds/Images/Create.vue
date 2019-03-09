@@ -20,6 +20,8 @@
                             <bootstrap-alert />
 
                             <div class="box-body">
+                                <!-- <vue-dropzone id="drop1" :options="dropOptions"></vue-dropzone> -->
+                                <image-uploader></image-uploader>
                                 <div class="form-group">
                                     <label for="name">Name *</label>
                                     <input
@@ -112,12 +114,25 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+// import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+// import vueDropzone from "vue2-dropzone";
 
 export default {
-  data() {
-    return {
-      // Code...
-    };
+    data: () => ({
+        // dropOptions: {
+        // url: "/api/v1/images/",
+        //         maxFilesize: 5, // MB
+        //         maxFiles: 4,
+        //         chunking: true,
+        //         chunkSize: 500, // Bytes
+        //         thumbnailWidth: 150, // px
+        //         thumbnailHeight: 150,
+        //         addRemoveLinks: true,
+        //         headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"}
+        // }
+  }),
+  components: {
+    //vueDropzone
   },
   computed: {
     ...mapGetters("ImagesSingle", ["item", "loading"])

@@ -50,11 +50,11 @@ class ImagesController extends Controller
         if (Gate::denies('image_create')) {
             return abort(401);
         }
-
+        //dd($request->all());
         $image = Image::create($request->all());
 
-        if ($request->hasFile('image')) {
-            $image->addMedia($request->file('image'))->toMediaCollection('image');
+        if ($request->hasFile('file')) {
+            $image->addMedia($request->file('file'))->toMediaCollection('image');
         }
 
         return (new ImageResource($image))

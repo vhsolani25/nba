@@ -120,6 +120,8 @@ export default {
 
       this.storeImageData(formData)
         .then(() => {
+          this.images = [];
+          this.files = [];
           this.$router.push({ name: "images.index" });
           this.$eventHub.$emit("create-success");
         })

@@ -32,13 +32,11 @@ const actions = {
         axios
             .get("/api/v1/images")
             .then(response => {
-                console.log(response.data);
                 commit("setAll", response.data.data);
             })
             .catch(error => {
                 message = error.response.data.message || error.message;
-                commit("setError", message);
-                console.log(message);
+                commit("setError", message);               
             })
             .finally(() => {
                 commit("setLoading", false);

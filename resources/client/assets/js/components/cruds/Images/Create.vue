@@ -95,7 +95,7 @@
                                 </div> -->
                             </div>
 
-                            <div class="box-footer">
+                            <!-- <div class="box-footer">
                                 <vue-button-spinner
                                         class="btn btn-primary btn-sm"
                                         :isLoading="loading"
@@ -103,7 +103,7 @@
                                         >
                                     Save
                                 </vue-button-spinner>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
                 </div>

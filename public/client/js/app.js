@@ -402,6 +402,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       });
 
       this.storeImageData(formData).then(function () {
+        _this4.images = [];
+        _this4.files = [];
         _this4.$router.push({ name: "images.index" });
         _this4.$eventHub.$emit("create-success");
       }).catch(function (error) {
@@ -24904,29 +24906,6 @@ var render = function() {
                     { staticClass: "box-body" },
                     [_c("image-uploader")],
                     1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "box-footer" },
-                    [
-                      _c(
-                        "vue-button-spinner",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            isLoading: _vm.loading,
-                            disabled: _vm.loading
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Save\n                            "
-                          )
-                        ]
-                      )
-                    ],
-                    1
                   )
                 ],
                 1
@@ -28639,12 +28618,10 @@ var actions = {
         commit("setLoading", true);
 
         axios.get("/api/v1/images").then(function (response) {
-            console.log(response.data);
             commit("setAll", response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
             commit("setError", message);
-            console.log(message);
         }).finally(function () {
             commit("setLoading", false);
         });

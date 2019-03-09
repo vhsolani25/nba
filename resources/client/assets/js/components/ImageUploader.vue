@@ -37,213 +37,223 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-    data: () => ({
-        isDragging: false,
-        dragCount: 0,
-        files: [],
-        images: []
-    }),
-    computed: {
+  data: () => ({
+    isDragging: false,
+    dragCount: 0,
+    files: [],
+    images: []
+  }),
+  computed: {
     ...mapGetters("ImagesSingle", ["item", "loading"])
+  },
+  methods: {
+    ...mapActions("ImagesSingle", [
+      "storeData",
+      "storeImageData",
+      "resetState",
+      "setName",
+      "setImage",
+      "setOrder",
+      "setStatus"
+    ]),
+    OnDragEnter(e) {
+      e.preventDefault();
+
+      this.dragCount++;
+      this.isDragging = true;
+
+      return false;
     },
-    methods: {
-     ...mapActions("ImagesSingle", [
-        "storeData",
-        "resetState",
-        "setName",
-        "setImage",
-        "setOrder",
-        "setStatus"
-        ]),
-        OnDragEnter(e) {
-            e.preventDefault();
+    OnDragLeave(e) {
+      e.preventDefault();
+      this.dragCount--;
 
-            this.dragCount++;
-            this.isDragging = true;
+      if (this.dragCount <= 0) this.isDragging = false;
+    },
+    onInputChange(e) {
+      const files = e.target.files;
+      Array.from(files).forEach(file => this.addImage(file));
+    },
+    onDrop(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-            return false;
-        },
-        OnDragLeave(e) {
-            e.preventDefault();
-            this.dragCount--;
+      this.isDragging = false;
 
-            if (this.dragCount <= 0)
-                this.isDragging = false;
-        },
-        onInputChange(e) {
-            const files = e.target.files;
-            Array.from(files).forEach(file => this.addImage(file));
-        },
-        onDrop(e) {
-            e.preventDefault();
-            e.stopPropagation();
+      const files = e.dataTransfer.files;
 
-            this.isDragging = false;
+      Array.from(files).forEach(file => this.addImage(file));
+    },
+    addImage(file) {
+      if (!file.type.match("image.*")) {
+        alert(`${file.name} is not an image`);
+        //this.$toastr.e(`${file.name} is not an image`);
+        return;
+      }
 
-            const files = e.dataTransfer.files;
+      this.files.push(file);
 
-            Array.from(files).forEach(file => this.addImage(file));
-        },
-        addImage(file) {
-            if (!file.type.match('image.*')) {
-                //this.$toastr.e(`${file.name} is not an image`);
-                return;
-            }
+      const img = new Image(),
+        reader = new FileReader();
 
-            this.files.push(file);
+      reader.onload = e => this.images.push(e.target.result);
 
-            const img = new Image(),
-                reader = new FileReader();
+      reader.readAsDataURL(file);
+    },
+    getFileSize(size) {
+      const fSExt = ["Bytes", "KB", "MB", "GB"];
+      let i = 0;
 
-            reader.onload = (e) => this.images.push(e.target.result);
+      while (size > 900) {
+        size /= 1024;
+        i++;
+      }
 
-            reader.readAsDataURL(file);
-        },
-        getFileSize(size) {
-            const fSExt = ['Bytes', 'KB', 'MB', 'GB'];
-            let i = 0;
+      return `${Math.round(size * 100) / 100} ${fSExt[i]}`;
+    },
+    upload() {
+      const formData = new FormData();
 
-            while(size > 900) {
-                size /= 1024;
-                i++;
-            }
+      this.files.forEach(file => {
+        console.log(file);
+        formData.append("images[]", file, file.name);
+      });
 
-            return `${(Math.round(size * 100) / 100)} ${fSExt[i]}`;
-        },
-        upload() {
-            alert('upload');
-            const formData = new FormData();
+      console.log(formData);
+      this.storeImageData(formData)
+        .then(() => {
+          this.$router.push({ name: "images.index" });
+          this.$eventHub.$emit("create-success");
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
 
-            console.log(this.files);
-            this.files.forEach(file => {
-                formData.append('images[]', file, file.name);
-            });
-            console.log(formData);
-            axios.post('/api/v1/images/', formData)
-                .then(response => {
-                    //this.$toastr.s('All images uplaoded successfully');
-                    this.images = [];
-                    this.files = [];
-                })
-        }
+      //   axios.post("/api/v1/images/", formData).then(response => {
+      //     //this.$toastr.s('All images uplaoded successfully');
+      //     this.images = [];
+      //     this.files = [];
+      //   });
     }
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .uploader {
-    width: 100%;
-    background: #2196F3;
-    color: #fff;
-    padding: 40px 15px;
-    text-align: center;
-    border-radius: 10px;
-    border: 3px dashed #fff;
-    font-size: 20px;
+  width: 100%;
+  background: #2196f3;
+  color: #fff;
+  padding: 40px 15px;
+  text-align: center;
+  border-radius: 10px;
+  border: 3px dashed #fff;
+  font-size: 20px;
+  position: relative;
+
+  &.dragging {
+    background: #fff;
+    color: #2196f3;
+    border: 3px dashed #2196f3;
+
+    .file-input label {
+      background: #2196f3;
+      color: #fff;
+    }
+  }
+
+  i {
+    font-size: 85px;
+  }
+
+  .file-input {
+    width: 200px;
+    margin: auto;
+    height: 68px;
     position: relative;
 
-    &.dragging {
-        background: #fff;
-        color: #2196F3;
-        border: 3px dashed #2196F3;
-
-        .file-input label {
-            background: #2196F3;
-            color: #fff;
-        }
+    label,
+    input {
+      background: #fff;
+      color: #2196f3;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 7px;
+      cursor: pointer;
     }
 
-    i {
-        font-size: 85px;
+    input {
+      opacity: 0;
+      z-index: -2;
+    }
+  }
+
+  .images-preview {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+    .img-wrapper {
+      width: 160px;
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
+      height: 150px;
+      justify-content: space-between;
+      background: #fff;
+      box-shadow: 5px 5px 20px #3e3737;
+
+      img {
+        max-height: 105px;
+      }
     }
 
-    .file-input {
-        width: 200px;
-        margin: auto;
-        height: 68px;
-        position: relative;
+    .details {
+      font-size: 12px;
+      background: #fff;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: self-start;
+      padding: 3px 6px;
 
-        label,
-        input {
-            background: #fff;
-            color: #2196F3;
-            width: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            padding: 10px;
-            border-radius: 4px;
-            margin-top: 7px;
-            cursor: pointer;
-        }
+      .name {
+        overflow: hidden;
+        height: 18px;
+      }
+    }
+  }
 
-        input {
-            opacity: 0;
-            z-index: -2;
-        }
+  .upload-control {
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    padding: 10px;
+    padding-bottom: 4px;
+    text-align: right;
+
+    button,
+    label {
+      background: #2196f3;
+      border: 2px solid #03a9f4;
+      border-radius: 3px;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
     }
 
-    .images-preview {
-        display: flex;
-        flex-wrap: wrap;
-        margin-top: 20px;
-
-        .img-wrapper {
-            width: 160px;
-            display: flex;
-            flex-direction: column;
-            margin: 10px;
-            height: 150px;
-            justify-content: space-between;
-            background: #fff;
-            box-shadow: 5px 5px 20px #3e3737;
-
-            img {
-                max-height: 105px;
-            }
-        }
-
-        .details {
-            font-size: 12px;
-            background: #fff;
-            color: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: self-start;
-            padding: 3px 6px;
-
-            .name {
-                overflow: hidden;
-                height: 18px;
-            }
-        }
+    label {
+      padding: 2px 5px;
+      margin-right: 10px;
     }
-
-    .upload-control {
-        position: absolute;
-        width: 100%;
-        background: #fff;
-        top: 0;
-        left: 0;
-        border-top-left-radius: 7px;
-        border-top-right-radius: 7px;
-        padding: 10px;
-        padding-bottom: 4px;
-        text-align: right;
-
-        button, label {
-            background: #2196F3;
-            border: 2px solid #03A9F4;
-            border-radius: 3px;
-            color: #fff;
-            font-size: 15px;
-            cursor: pointer;
-        }
-
-        label {
-            padding: 2px 5px;
-            margin-right: 10px;
-        }
-    }
+  }
 }
 </style>

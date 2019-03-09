@@ -66,10 +66,8 @@ export default {
     data() {
         return {
             columns: [
-                { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
-                { title: 'Name', field: 'name', sortable: true },
-                { title: 'Image', tdComp: DatatableImageField, sortable: false },
-                { title: 'Order', field: 'order', sortable: true },
+                { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },               
+                { title: 'Image', tdComp: DatatableImageField, sortable: false },               
                 { title: 'Status', field: 'status', sortable: true },
                 { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],

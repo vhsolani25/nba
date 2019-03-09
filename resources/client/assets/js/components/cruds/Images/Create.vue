@@ -119,18 +119,18 @@ import { mapGetters, mapActions } from "vuex";
 // import vueDropzone from "vue2-dropzone";
 
 export default {
-    data: () => ({
-        // dropOptions: {
-        // url: "/api/v1/images/",
-        //         maxFilesize: 5, // MB
-        //         maxFiles: 4,
-        //         chunking: true,
-        //         chunkSize: 500, // Bytes
-        //         thumbnailWidth: 150, // px
-        //         thumbnailHeight: 150,
-        //         addRemoveLinks: true,
-        //         headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"}
-        // }
+  data: () => ({
+    // dropOptions: {
+    // url: "/api/v1/images/",
+    //         maxFilesize: 5, // MB
+    //         maxFiles: 4,
+    //         chunking: true,
+    //         chunkSize: 500, // Bytes
+    //         thumbnailWidth: 150, // px
+    //         thumbnailHeight: 150,
+    //         addRemoveLinks: true,
+    //         headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"}
+    // }
   }),
   components: {
     //vueDropzone
@@ -189,7 +189,7 @@ export default {
           this.$eventHub.$emit("create-success");
         })
         .catch(error => {
-          console.log(error.response)
+          console.log(error.response);
         });
     }
   }

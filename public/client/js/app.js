@@ -315,100 +315,108 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            isDragging: false,
-            dragCount: 0,
-            files: [],
-            images: []
-        };
+  data: function data() {
+    return {
+      isDragging: false,
+      dragCount: 0,
+      files: [],
+      images: []
+    };
+  },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item", "loading"])),
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesSingle", ["storeData", "storeImageData", "resetState", "setName", "setImage", "setOrder", "setStatus"]), {
+    OnDragEnter: function OnDragEnter(e) {
+      e.preventDefault();
+
+      this.dragCount++;
+      this.isDragging = true;
+
+      return false;
     },
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item", "loading"])),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesSingle", ["storeData", "resetState", "setName", "setImage", "setOrder", "setStatus"]), {
-        OnDragEnter: function OnDragEnter(e) {
-            e.preventDefault();
+    OnDragLeave: function OnDragLeave(e) {
+      e.preventDefault();
+      this.dragCount--;
 
-            this.dragCount++;
-            this.isDragging = true;
+      if (this.dragCount <= 0) this.isDragging = false;
+    },
+    onInputChange: function onInputChange(e) {
+      var _this = this;
 
-            return false;
-        },
-        OnDragLeave: function OnDragLeave(e) {
-            e.preventDefault();
-            this.dragCount--;
+      var files = e.target.files;
+      Array.from(files).forEach(function (file) {
+        return _this.addImage(file);
+      });
+    },
+    onDrop: function onDrop(e) {
+      var _this2 = this;
 
-            if (this.dragCount <= 0) this.isDragging = false;
-        },
-        onInputChange: function onInputChange(e) {
-            var _this = this;
+      e.preventDefault();
+      e.stopPropagation();
 
-            var files = e.target.files;
-            Array.from(files).forEach(function (file) {
-                return _this.addImage(file);
-            });
-        },
-        onDrop: function onDrop(e) {
-            var _this2 = this;
+      this.isDragging = false;
 
-            e.preventDefault();
-            e.stopPropagation();
+      var files = e.dataTransfer.files;
 
-            this.isDragging = false;
+      Array.from(files).forEach(function (file) {
+        return _this2.addImage(file);
+      });
+    },
+    addImage: function addImage(file) {
+      var _this3 = this;
 
-            var files = e.dataTransfer.files;
+      if (!file.type.match("image.*")) {
+        alert(file.name + " is not an image");
+        //this.$toastr.e(`${file.name} is not an image`);
+        return;
+      }
 
-            Array.from(files).forEach(function (file) {
-                return _this2.addImage(file);
-            });
-        },
-        addImage: function addImage(file) {
-            var _this3 = this;
+      this.files.push(file);
 
-            if (!file.type.match('image.*')) {
-                //this.$toastr.e(`${file.name} is not an image`);
-                return;
-            }
+      var img = new Image(),
+          reader = new FileReader();
 
-            this.files.push(file);
+      reader.onload = function (e) {
+        return _this3.images.push(e.target.result);
+      };
 
-            var img = new Image(),
-                reader = new FileReader();
+      reader.readAsDataURL(file);
+    },
+    getFileSize: function getFileSize(size) {
+      var fSExt = ["Bytes", "KB", "MB", "GB"];
+      var i = 0;
 
-            reader.onload = function (e) {
-                return _this3.images.push(e.target.result);
-            };
+      while (size > 900) {
+        size /= 1024;
+        i++;
+      }
 
-            reader.readAsDataURL(file);
-        },
-        getFileSize: function getFileSize(size) {
-            var fSExt = ['Bytes', 'KB', 'MB', 'GB'];
-            var i = 0;
+      return Math.round(size * 100) / 100 + " " + fSExt[i];
+    },
+    upload: function upload() {
+      var _this4 = this;
 
-            while (size > 900) {
-                size /= 1024;
-                i++;
-            }
+      var formData = new FormData();
 
-            return Math.round(size * 100) / 100 + " " + fSExt[i];
-        },
-        upload: function upload() {
-            var _this4 = this;
+      this.files.forEach(function (file) {
+        console.log(file);
+        formData.append("images[]", file, file.name);
+      });
 
-            alert('upload');
-            var formData = new FormData();
+      console.log(formData);
+      this.storeImageData(formData).then(function () {
+        _this4.$router.push({ name: "images.index" });
+        _this4.$eventHub.$emit("create-success");
+      }).catch(function (error) {
+        console.log(error.response);
+      });
 
-            console.log(this.files);
-            this.files.forEach(function (file) {
-                formData.append('images[]', file, file.name);
-            });
-            console.log(formData);
-            axios.post('/api/v1/images/', formData).then(function (response) {
-                //this.$toastr.s('All images uplaoded successfully');
-                _this4.images = [];
-                _this4.files = [];
-            });
-        }
-    })
+      //   axios.post("/api/v1/images/", formData).then(response => {
+      //     //this.$toastr.s('All images uplaoded successfully');
+      //     this.images = [];
+      //     this.files = [];
+      //   });
+    }
+  })
 });
 
 /***/ }),
@@ -958,7 +966,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Name', field: 'name', sortable: true }, { title: 'Image', tdComp: __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableImageField___default.a, sortable: false }, { title: 'Order', field: 'order', sortable: true }, { title: 'Status', field: 'status', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Image', tdComp: __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableImageField___default.a, sortable: false }, { title: 'Status', field: 'status', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
             query: { sort: 'id', order: 'desc' },
             xprops: {
                 module: 'ImagesIndex',
@@ -2800,7 +2808,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2935,7 +2943,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.uploader[data-v-5f73e774] {\n  width: 100%;\n  background: #2196F3;\n  color: #fff;\n  padding: 40px 15px;\n  text-align: center;\n  border-radius: 10px;\n  border: 3px dashed #fff;\n  font-size: 20px;\n  position: relative;\n}\n.uploader.dragging[data-v-5f73e774] {\n    background: #fff;\n    color: #2196F3;\n    border: 3px dashed #2196F3;\n}\n.uploader.dragging .file-input label[data-v-5f73e774] {\n      background: #2196F3;\n      color: #fff;\n}\n.uploader i[data-v-5f73e774] {\n    font-size: 85px;\n}\n.uploader .file-input[data-v-5f73e774] {\n    width: 200px;\n    margin: auto;\n    height: 68px;\n    position: relative;\n}\n.uploader .file-input label[data-v-5f73e774],\n    .uploader .file-input input[data-v-5f73e774] {\n      background: #fff;\n      color: #2196F3;\n      width: 100%;\n      position: absolute;\n      left: 0;\n      top: 0;\n      padding: 10px;\n      border-radius: 4px;\n      margin-top: 7px;\n      cursor: pointer;\n}\n.uploader .file-input input[data-v-5f73e774] {\n      opacity: 0;\n      z-index: -2;\n}\n.uploader .images-preview[data-v-5f73e774] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    margin-top: 20px;\n}\n.uploader .images-preview .img-wrapper[data-v-5f73e774] {\n      width: 160px;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: column;\n              flex-direction: column;\n      margin: 10px;\n      height: 150px;\n      -webkit-box-pack: justify;\n          -ms-flex-pack: justify;\n              justify-content: space-between;\n      background: #fff;\n      -webkit-box-shadow: 5px 5px 20px #3e3737;\n              box-shadow: 5px 5px 20px #3e3737;\n}\n.uploader .images-preview .img-wrapper img[data-v-5f73e774] {\n        max-height: 105px;\n}\n.uploader .images-preview .details[data-v-5f73e774] {\n      font-size: 12px;\n      background: #fff;\n      color: #000;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: column;\n              flex-direction: column;\n      -webkit-box-align: self-start;\n          -ms-flex-align: self-start;\n              align-items: self-start;\n      padding: 3px 6px;\n}\n.uploader .images-preview .details .name[data-v-5f73e774] {\n        overflow: hidden;\n        height: 18px;\n}\n.uploader .upload-control[data-v-5f73e774] {\n    position: absolute;\n    width: 100%;\n    background: #fff;\n    top: 0;\n    left: 0;\n    border-top-left-radius: 7px;\n    border-top-right-radius: 7px;\n    padding: 10px;\n    padding-bottom: 4px;\n    text-align: right;\n}\n.uploader .upload-control button[data-v-5f73e774], .uploader .upload-control label[data-v-5f73e774] {\n      background: #2196F3;\n      border: 2px solid #03A9F4;\n      border-radius: 3px;\n      color: #fff;\n      font-size: 15px;\n      cursor: pointer;\n}\n.uploader .upload-control label[data-v-5f73e774] {\n      padding: 2px 5px;\n      margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.uploader[data-v-5f73e774] {\n  width: 100%;\n  background: #2196f3;\n  color: #fff;\n  padding: 40px 15px;\n  text-align: center;\n  border-radius: 10px;\n  border: 3px dashed #fff;\n  font-size: 20px;\n  position: relative;\n}\n.uploader.dragging[data-v-5f73e774] {\n    background: #fff;\n    color: #2196f3;\n    border: 3px dashed #2196f3;\n}\n.uploader.dragging .file-input label[data-v-5f73e774] {\n      background: #2196f3;\n      color: #fff;\n}\n.uploader i[data-v-5f73e774] {\n    font-size: 85px;\n}\n.uploader .file-input[data-v-5f73e774] {\n    width: 200px;\n    margin: auto;\n    height: 68px;\n    position: relative;\n}\n.uploader .file-input label[data-v-5f73e774],\n    .uploader .file-input input[data-v-5f73e774] {\n      background: #fff;\n      color: #2196f3;\n      width: 100%;\n      position: absolute;\n      left: 0;\n      top: 0;\n      padding: 10px;\n      border-radius: 4px;\n      margin-top: 7px;\n      cursor: pointer;\n}\n.uploader .file-input input[data-v-5f73e774] {\n      opacity: 0;\n      z-index: -2;\n}\n.uploader .images-preview[data-v-5f73e774] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    margin-top: 20px;\n}\n.uploader .images-preview .img-wrapper[data-v-5f73e774] {\n      width: 160px;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: column;\n              flex-direction: column;\n      margin: 10px;\n      height: 150px;\n      -webkit-box-pack: justify;\n          -ms-flex-pack: justify;\n              justify-content: space-between;\n      background: #fff;\n      -webkit-box-shadow: 5px 5px 20px #3e3737;\n              box-shadow: 5px 5px 20px #3e3737;\n}\n.uploader .images-preview .img-wrapper img[data-v-5f73e774] {\n        max-height: 105px;\n}\n.uploader .images-preview .details[data-v-5f73e774] {\n      font-size: 12px;\n      background: #fff;\n      color: #000;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n          -ms-flex-direction: column;\n              flex-direction: column;\n      -webkit-box-align: self-start;\n          -ms-flex-align: self-start;\n              align-items: self-start;\n      padding: 3px 6px;\n}\n.uploader .images-preview .details .name[data-v-5f73e774] {\n        overflow: hidden;\n        height: 18px;\n}\n.uploader .upload-control[data-v-5f73e774] {\n    position: absolute;\n    width: 100%;\n    background: #fff;\n    top: 0;\n    left: 0;\n    border-top-left-radius: 7px;\n    border-top-right-radius: 7px;\n    padding: 10px;\n    padding-bottom: 4px;\n    text-align: right;\n}\n.uploader .upload-control button[data-v-5f73e774],\n    .uploader .upload-control label[data-v-5f73e774] {\n      background: #2196f3;\n      border: 2px solid #03a9f4;\n      border-radius: 3px;\n      color: #fff;\n      font-size: 15px;\n      cursor: pointer;\n}\n.uploader .upload-control label[data-v-5f73e774] {\n      padding: 2px 5px;\n      margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -26901,7 +26909,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_eonasdan_bootstrap_datetimepicker_build_css_bootstrap_datetimepicker_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_eonasdan_bootstrap_datetimepicker_build_css_bootstrap_datetimepicker_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config_ability__ = __webpack_require__("./resources/client/assets/js/config/ability.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__casl_vue__ = __webpack_require__("./node_modules/@casl/vue/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__ = __webpack_require__("./node_modules/vue-ckeditor2/dist/vue-ckeditor2.es.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__ = __webpack_require__("./node_modules/vue-ckeditor2/dist/vue-ckeditor2.esm.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -28800,7 +28808,7 @@ var getters = {
 };
 
 var actions = {
-    storeData: function storeData(_ref) {
+    storeImageData: function storeImageData(_ref, params) {
         var commit = _ref.commit,
             state = _ref.state,
             dispatch = _ref.dispatch;
@@ -28809,9 +28817,37 @@ var actions = {
         dispatch("Alert/resetState", null, { root: true });
 
         return new Promise(function (resolve, reject) {
+            var settings = {
+                headers: { "content-type": "multipart/form-data" }
+            };
+
+            axios.post("/api/v1/images", params).then(function (response) {
+                commit("resetState");
+                resolve();
+            }).catch(function (error) {
+                var message = error.response.data.message || error.message;
+                var errors = error.response.data.errors;
+
+                dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
+
+                reject(error);
+            }).finally(function () {
+                commit("setLoading", false);
+            });
+        });
+    },
+    storeData: function storeData(_ref2) {
+        var commit = _ref2.commit,
+            state = _ref2.state,
+            dispatch = _ref2.dispatch;
+
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
+
+        return new Promise(function (resolve, reject) {
             var params = new FormData();
             var settings = {
-                headers: { 'content-type': 'multipart/form-data' }
+                headers: { "content-type": "multipart/form-data" }
             };
 
             for (var fieldName in state.item) {
@@ -28847,10 +28883,10 @@ var actions = {
             });
         });
     },
-    updateData: function updateData(_ref2) {
-        var commit = _ref2.commit,
-            state = _ref2.state,
-            dispatch = _ref2.dispatch;
+    updateData: function updateData(_ref3) {
+        var commit = _ref3.commit,
+            state = _ref3.state,
+            dispatch = _ref3.dispatch;
 
         commit("setLoading", true);
         dispatch("Alert/resetState", null, { root: true });
@@ -28893,36 +28929,36 @@ var actions = {
             });
         });
     },
-    fetchData: function fetchData(_ref3, id) {
-        var commit = _ref3.commit,
-            dispatch = _ref3.dispatch;
+    fetchData: function fetchData(_ref4, id) {
+        var commit = _ref4.commit,
+            dispatch = _ref4.dispatch;
 
         axios.get("/api/v1/images/" + id).then(function (response) {
             commit("setItem", response.data.data);
         });
     },
-    setName: function setName(_ref4, value) {
-        var commit = _ref4.commit;
+    setName: function setName(_ref5, value) {
+        var commit = _ref5.commit;
 
         commit("setName", value);
     },
-    setImage: function setImage(_ref5, value) {
-        var commit = _ref5.commit;
+    setImage: function setImage(_ref6, value) {
+        var commit = _ref6.commit;
 
         commit("setImage", value);
     },
-    setOrder: function setOrder(_ref6, value) {
-        var commit = _ref6.commit;
+    setOrder: function setOrder(_ref7, value) {
+        var commit = _ref7.commit;
 
         commit("setOrder", value);
     },
-    setStatus: function setStatus(_ref7, value) {
-        var commit = _ref7.commit;
+    setStatus: function setStatus(_ref8, value) {
+        var commit = _ref8.commit;
 
         commit("setStatus", value);
     },
-    resetState: function resetState(_ref8) {
-        var commit = _ref8.commit;
+    resetState: function resetState(_ref9) {
+        var commit = _ref9.commit;
 
         commit("resetState");
     }

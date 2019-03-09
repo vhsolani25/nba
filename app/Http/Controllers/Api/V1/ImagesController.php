@@ -47,18 +47,19 @@ class ImagesController extends Controller
      */
     public function store(StoreImagesRequest $request)
     {
-        // if (Gate::denies('image_create')) {
-        //     return abort(401);
-        // }
-        //$image = Image::create($request->all());
+        if (Gate::denies('image_create')) {
+            return abort(401);
+        }
 
-        // if ($request->hasFile('image')) {
-        //     $image->addMedia($request->file('image'))->toMediaCollection('image');
-        // }
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $key => $file) {
-                $image->addMedia($file)->toMediaCollection('images');
+        if (count($request->images)) {
+            foreach ($request->images as $file) {
+                $image = Image::create(
+                    [
+                        'name' => 'one'
+                    ]
+                );
+                //$image->store('images');
+                $image->addMedia($file)->toMediaCollection('image');
             }
         }
 

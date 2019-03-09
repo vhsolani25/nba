@@ -18,6 +18,38 @@ const getters = {
 };
 
 const actions = {
+    storeImageData({ commit, state, dispatch }, params) {
+        commit("setLoading", true);
+        dispatch("Alert/resetState", null, { root: true });
+
+        return new Promise((resolve, reject) => {
+            let settings = {
+                headers: { "content-type": "multipart/form-data" }
+            };
+
+            axios
+                .post("/api/v1/images", params)
+                .then(response => {
+                    commit("resetState");
+                    resolve();
+                })
+                .catch(error => {
+                    let message = error.response.data.message || error.message;
+                    let errors = error.response.data.errors;
+
+                    dispatch(
+                        "Alert/setAlert",
+                        { message: message, errors: errors, color: "danger" },
+                        { root: true }
+                    );
+
+                    reject(error);
+                })
+                .finally(() => {
+                    commit("setLoading", false);
+                });
+        });
+    },
     storeData({ commit, state, dispatch }) {
         commit("setLoading", true);
         dispatch("Alert/resetState", null, { root: true });
@@ -25,7 +57,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             let params = new FormData();
             let settings = {
-                headers: { 'content-type': 'multipart/form-data' }
+                headers: { "content-type": "multipart/form-data" }
             };
 
             for (let fieldName in state.item) {

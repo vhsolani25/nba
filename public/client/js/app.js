@@ -273,6 +273,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -310,6 +313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
@@ -319,7 +323,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             images: []
         };
     },
-    methods: {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item", "loading"])),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesSingle", ["storeData", "resetState", "setName", "setImage", "setOrder", "setStatus"]), {
         OnDragEnter: function OnDragEnter(e) {
             e.preventDefault();
 
@@ -338,7 +343,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var files = e.target.files;
-
             Array.from(files).forEach(function (file) {
                 return _this.addImage(file);
             });
@@ -361,7 +365,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             if (!file.type.match('image.*')) {
-                this.$toastr.e(file.name + ' is not an image');
+                //this.$toastr.e(`${file.name} is not an image`);
                 return;
             }
 
@@ -385,24 +389,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 i++;
             }
 
-            return Math.round(size * 100) / 100 + ' ' + fSExt[i];
+            return Math.round(size * 100) / 100 + " " + fSExt[i];
         },
         upload: function upload() {
             var _this4 = this;
 
+            alert('upload');
             var formData = new FormData();
 
+            console.log(this.files);
             this.files.forEach(function (file) {
                 formData.append('images[]', file, file.name);
             });
-
-            axios.post('/images-upload', formData).then(function (response) {
-                _this4.$toastr.s('All images uplaoded successfully');
+            console.log(formData);
+            axios.post('/api/v1/images/', formData).then(function (response) {
+                //this.$toastr.s('All images uplaoded successfully');
                 _this4.images = [];
                 _this4.files = [];
             });
         }
-    }
+    })
 });
 
 /***/ }),
@@ -482,6 +488,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
 //
 //
 //
@@ -2898,7 +2905,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -24864,191 +24871,55 @@ var render = function() {
       _c("section", { staticClass: "content" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-xs-12" }, [
-            _c(
-              "form",
-              {
-                attrs: { novalidate: "" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.submitForm($event)
-                  }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  { staticClass: "box" },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "box-body" },
-                      [_c("back-buttton")],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("bootstrap-alert"),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "box-body" },
-                      [
-                        _c("image-uploader"),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "name" } }, [
-                            _vm._v("Name *")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              name: "name",
-                              placeholder: "Enter Name *"
-                            },
-                            domProps: { value: _vm.item.name },
-                            on: { input: _vm.updateName }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "image" } }, [
-                            _vm._v("Image *")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: { type: "file" },
-                            on: { change: _vm.updateImage }
-                          }),
-                          _vm._v(" "),
-                          _vm.item.image
-                            ? _c("ul", { staticClass: "list-unstyled" }, [
-                                _c("li", [
-                                  _vm._v(
-                                    "\n                                        " +
-                                      _vm._s(
-                                        _vm.item.image.name ||
-                                          _vm.item.image.file_name
-                                      ) +
-                                      "\n                                        "
-                                  ),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      attrs: { type: "button" },
-                                      on: { click: _vm.removeImage }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                            Remove file\n                                        "
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "order" } }, [
-                            _vm._v("Order *")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              min: "1",
-                              max: "11",
-                              name: "order",
-                              placeholder: "Enter Order *"
-                            },
-                            domProps: { value: _vm.item.order },
-                            on: { input: _vm.updateOrder }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "status" } }, [
-                            _vm._v("Status")
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "radio" }, [
-                            _c("label", [
-                              _c("input", {
-                                attrs: { type: "radio", name: "status" },
-                                domProps: {
-                                  value: _vm.item.status,
-                                  checked: _vm.item.status === "1"
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.updateStatus("1")
-                                  }
-                                }
-                              }),
-                              _vm._v(
-                                "\n                                        Yes\n                                    "
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "radio" }, [
-                            _c("label", [
-                              _c("input", {
-                                attrs: { type: "radio", name: "status" },
-                                domProps: {
-                                  value: _vm.item.status,
-                                  checked: _vm.item.status === "0"
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.updateStatus("0")
-                                  }
-                                }
-                              }),
-                              _vm._v(
-                                "\n                                        No\n                                    "
-                              )
-                            ])
-                          ])
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "box-footer" },
-                      [
-                        _c(
-                          "vue-button-spinner",
-                          {
-                            staticClass: "btn btn-primary btn-sm",
-                            attrs: {
-                              isLoading: _vm.loading,
-                              disabled: _vm.loading
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                Save\n                            "
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]
-            )
+            _c("form", { attrs: { novalidate: "" } }, [
+              _c(
+                "div",
+                { staticClass: "box" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "box-body" },
+                    [_c("back-buttton")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("bootstrap-alert"),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "box-body" },
+                    [_c("image-uploader")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "box-footer" },
+                    [
+                      _c(
+                        "vue-button-spinner",
+                        {
+                          staticClass: "btn btn-primary btn-sm",
+                          attrs: {
+                            isLoading: _vm.loading,
+                            disabled: _vm.loading
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Save\n                            "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ])
           ])
         ])
       ])

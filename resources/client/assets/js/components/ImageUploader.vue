@@ -5,7 +5,7 @@
         @dragover.prevent
         @drop="onDrop"
         :class="{ dragging: isDragging }">
-        
+
         <div class="upload-control" v-show="images.length">
             <label for="file">Select a file</label>
             <button @click="upload">Upload</button>
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
     data: () => ({
         isDragging: false,
@@ -42,10 +43,21 @@ export default {
         files: [],
         images: []
     }),
+    computed: {
+    ...mapGetters("ImagesSingle", ["item", "loading"])
+    },
     methods: {
+     ...mapActions("ImagesSingle", [
+        "storeData",
+        "resetState",
+        "setName",
+        "setImage",
+        "setOrder",
+        "setStatus"
+        ]),
         OnDragEnter(e) {
             e.preventDefault();
-            
+
             this.dragCount++;
             this.isDragging = true;
 
@@ -60,7 +72,6 @@ export default {
         },
         onInputChange(e) {
             const files = e.target.files;
-
             Array.from(files).forEach(file => this.addImage(file));
         },
         onDrop(e) {
@@ -75,7 +86,7 @@ export default {
         },
         addImage(file) {
             if (!file.type.match('image.*')) {
-                this.$toastr.e(`${file.name} is not an image`);
+                //this.$toastr.e(`${file.name} is not an image`);
                 return;
             }
 
@@ -91,7 +102,7 @@ export default {
         getFileSize(size) {
             const fSExt = ['Bytes', 'KB', 'MB', 'GB'];
             let i = 0;
-            
+
             while(size > 900) {
                 size /= 1024;
                 i++;
@@ -100,15 +111,17 @@ export default {
             return `${(Math.round(size * 100) / 100)} ${fSExt[i]}`;
         },
         upload() {
+            alert('upload');
             const formData = new FormData();
-            
+
+            console.log(this.files);
             this.files.forEach(file => {
                 formData.append('images[]', file, file.name);
             });
-
-            axios.post('/images-upload', formData)
+            console.log(formData);
+            axios.post('/api/v1/images/', formData)
                 .then(response => {
-                    this.$toastr.s('All images uplaoded successfully');
+                    //this.$toastr.s('All images uplaoded successfully');
                     this.images = [];
                     this.files = [];
                 })

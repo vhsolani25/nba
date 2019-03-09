@@ -55,7 +55,9 @@ class ImagesController extends Controller
             foreach ($request->images as $file) {
                 $image = Image::create(
                     [
-                        'name' => 'one'
+                        'name' => 'one',
+                        'status'=> 1,
+                        'order' => 1
                     ]
                 );
                 //$image->store('images');

@@ -20,7 +20,7 @@
                             <bootstrap-alert />
 
                             <div class="box-body">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="name">Name *</label>
                                     <input
                                             type="text"
@@ -30,7 +30,7 @@
                                             :value="item.name"
                                             @input="updateName"
                                             >
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label for="image">Image *</label>
                                     <input
@@ -50,7 +50,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="order">Order *</label>
                                     <input
                                             type="number"
@@ -62,8 +62,8 @@
                                             :value="item.order"
                                             @input="updateOrder"
                                             >
-                                </div>
-                                <div class="form-group">
+                                </div> -->
+                                <!-- <div class="form-group">
                                     <label for="status">Status</label>
                                     <div class="radio">
                                         <label>
@@ -89,7 +89,7 @@
                                             No
                                         </label>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="box-footer">

@@ -55,55 +55,63 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import DatatableActions from '../../dtmodules/DatatableActions'
-import DatatableSingle from '../../dtmodules/DatatableSingle'
-import DatatableList from '../../dtmodules/DatatableList'
-import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
-import DatatableImageField from './dtmodules/DatatableImageField'
+import { mapGetters, mapActions } from "vuex";
+import DatatableActions from "../../dtmodules/DatatableActions";
+import DatatableSingle from "../../dtmodules/DatatableSingle";
+import DatatableList from "../../dtmodules/DatatableList";
+import DatatableCheckbox from "../../dtmodules/DatatableCheckbox";
+import DatatableImageField from "./dtmodules/DatatableImageField";
 
 export default {
-    data() {
-        return {
-            columns: [
-                { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },               
-                { title: 'Image', tdComp: DatatableImageField, sortable: false },               
-                { title: 'Status', field: 'status', sortable: true },
-                { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
-            ],
-            query: { sort: 'id', order: 'desc' },
-            xprops: {
-                module: 'ImagesIndex',
-                route: 'images',
-                permission_prefix: 'image_'
-            }
+  data() {
+    return {
+      columns: [
+        { title: "#", field: "id", sortable: true, colStyle: "width: 50px;" },
+        // { title: 'Name', field: 'name', sortable: true },
+        { title: "Image", tdComp: DatatableImageField, sortable: false },
+        // { title: "Order", field: "order", sortable: true },
+        //{ title: "Status", field: "status", sortable: true },
+        {
+          title: "Actions",
+          tdComp: DatatableActions,
+          visible: true,
+          thClass: "text-right",
+          tdClass: "text-right",
+          colStyle: "width: 130px;"
         }
-    },
-    created() {
-        this.$root.relationships = this.relationships
-        this.fetchData()
-    },
-    destroyed() {
-        this.resetState()
-    },
-    computed: {
-        ...mapGetters('ImagesIndex', ['data', 'total', 'loading', 'relationships']),
-    },
-    watch: {
-        query: {
-            handler(query) {
-                this.setQuery(query)
-            },
-            deep: true
-        }
-    },
-    methods: {
-        ...mapActions('ImagesIndex', ['fetchData', 'setQuery', 'resetState']),
+      ],
+      query: { sort: "id", order: "desc" },
+      xprops: {
+        module: "ImagesIndex",
+        route: "images",
+        permission_prefix: "image_"
+      }
+    };
+  },
+  created() {
+    this.$root.relationships = this.relationships;
+    this.fetchData();
+  },
+  destroyed() {
+    this.resetState();
+  },
+  computed: {
+    ...mapGetters("ImagesIndex", ["data", "total", "loading", "relationships"])
+  },
+  watch: {
+    query: {
+      handler(query) {
+        this.setQuery(query);
+      },
+      deep: true
     }
-}
+  },
+  methods: {
+    ...mapActions("ImagesIndex", ["fetchData", "setQuery", "resetState"])
+  }
+};
 </script>
 
 
 <style scoped>
-
 </style>

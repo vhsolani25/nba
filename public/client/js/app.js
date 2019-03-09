@@ -398,23 +398,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       var formData = new FormData();
 
       this.files.forEach(function (file) {
-        console.log(file);
         formData.append("images[]", file, file.name);
       });
 
-      console.log(formData);
       this.storeImageData(formData).then(function () {
         _this4.$router.push({ name: "images.index" });
         _this4.$eventHub.$emit("create-success");
       }).catch(function (error) {
         console.log(error.response);
       });
-
-      //   axios.post("/api/v1/images/", formData).then(response => {
-      //     //this.$toastr.s('All images uplaoded successfully');
-      //     this.images = [];
-      //     this.files = [];
-      //   });
     }
   })
 });
@@ -964,36 +956,48 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Image', tdComp: __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableImageField___default.a, sortable: false }, { title: 'Status', field: 'status', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
-            query: { sort: 'id', order: 'desc' },
-            xprops: {
-                module: 'ImagesIndex',
-                route: 'images',
-                permission_prefix: 'image_'
-            }
-        };
-    },
-    created: function created() {
-        this.$root.relationships = this.relationships;
-        this.fetchData();
-    },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
+  data: function data() {
+    return {
+      columns: [{ title: "#", field: "id", sortable: true, colStyle: "width: 50px;" },
+      // { title: 'Name', field: 'name', sortable: true },
+      { title: "Image", tdComp: __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableImageField___default.a, sortable: false },
+      // { title: "Order", field: "order", sortable: true },
+      //{ title: "Status", field: "status", sortable: true },
+      {
+        title: "Actions",
+        tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a,
+        visible: true,
+        thClass: "text-right",
+        tdClass: "text-right",
+        colStyle: "width: 130px;"
+      }],
+      query: { sort: "id", order: "desc" },
+      xprops: {
+        module: "ImagesIndex",
+        route: "images",
+        permission_prefix: "image_"
+      }
+    };
+  },
+  created: function created() {
+    this.$root.relationships = this.relationships;
+    this.fetchData();
+  },
+  destroyed: function destroyed() {
+    this.resetState();
+  },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('ImagesIndex', ['data', 'total', 'loading', 'relationships'])),
-    watch: {
-        query: {
-            handler: function handler(query) {
-                this.setQuery(query);
-            },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesIndex", ["data", "total", "loading", "relationships"])),
+  watch: {
+    query: {
+      handler: function handler(query) {
+        this.setQuery(query);
+      },
 
-            deep: true
-        }
-    },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('ImagesIndex', ['fetchData', 'setQuery', 'resetState']))
+      deep: true
+    }
+  },
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesIndex", ["fetchData", "setQuery", "resetState"]))
 });
 
 /***/ }),
@@ -2808,7 +2812,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25557,23 +25561,6 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "box-body" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Name *")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "name",
-                            placeholder: "Enter Name *"
-                          },
-                          domProps: { value: _vm.item.name },
-                          on: { input: _vm.updateName }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "image" } }, [
                           _vm._v("Image *")
                         ]),
@@ -25611,71 +25598,6 @@ var render = function() {
                               ])
                             ])
                           : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "order" } }, [
-                          _vm._v("Order *")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "number",
-                            min: "1",
-                            max: "11",
-                            name: "order",
-                            placeholder: "Enter Order *"
-                          },
-                          domProps: { value: _vm.item.order },
-                          on: { input: _vm.updateOrder }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "status" } }, [
-                          _vm._v("Status")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "radio" }, [
-                          _c("label", [
-                            _c("input", {
-                              attrs: { type: "radio", name: "status" },
-                              domProps: {
-                                value: _vm.item.status,
-                                checked: _vm.item.status === "1"
-                              },
-                              on: {
-                                change: function($event) {
-                                  return _vm.updateStatus("1")
-                                }
-                              }
-                            }),
-                            _vm._v(
-                              "\n                                        Yes\n                                    "
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "radio" }, [
-                          _c("label", [
-                            _c("input", {
-                              attrs: { type: "radio", name: "status" },
-                              domProps: {
-                                value: _vm.item.status,
-                                checked: _vm.item.status === "0"
-                              },
-                              on: {
-                                change: function($event) {
-                                  return _vm.updateStatus("0")
-                                }
-                              }
-                            }),
-                            _vm._v(
-                              "\n                                        No\n                                    "
-                            )
-                          ])
-                        ])
                       ])
                     ]),
                     _vm._v(" "),

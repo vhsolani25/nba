@@ -61,7 +61,7 @@ class Image extends Model implements HasMedia
     {
         return [
             // 'name' => 'max:50|required',
-            // 'image' => 'image|mimes:jpg,jpeg,png|required|max:20000',
+            //'image' => 'image|mimes:jpg,jpeg,png|required|max:20000',
             // 'order' => 'integer|min:1|required|unique:images,order',
             // 'status' => 'required',
         ];
@@ -77,10 +77,10 @@ class Image extends Model implements HasMedia
     public static function updateValidation($request)
     {
         return [
-            'name' => 'max:50|required',
+            //'name' => 'max:50|required',
             'image' => 'image|mimes:jpg,jpeg,png|required|max:20000',
-            'order' => 'integer|min:1|required|unique:images,order,' . $request->id,
-            'status' => 'required',
+            //'order' => 'integer|min:1|required|unique:images,order,' . $request->id,
+            //'status' => 'required',
         ];
     }
 

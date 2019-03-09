@@ -115,11 +115,9 @@ export default {
       const formData = new FormData();
 
       this.files.forEach(file => {
-        console.log(file);
         formData.append("images[]", file, file.name);
       });
 
-      console.log(formData);
       this.storeImageData(formData)
         .then(() => {
           this.$router.push({ name: "images.index" });
@@ -128,12 +126,6 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
-
-      //   axios.post("/api/v1/images/", formData).then(response => {
-      //     //this.$toastr.s('All images uplaoded successfully');
-      //     this.images = [];
-      //     this.files = [];
-      //   });
     }
   }
 };

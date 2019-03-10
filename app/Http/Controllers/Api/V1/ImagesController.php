@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Validator;
 use App\Http\Requests\Admin\StoreImagesRequest;
 use App\Http\Requests\Admin\UpdateImagesRequest;
 use App\Http\Resources\Image as ImageResource;
@@ -45,10 +47,25 @@ class ImagesController extends Controller
      *
      * @return mixed
      */
-    public function store(StoreImagesRequest $request)
+    public function store(Request $request)
     {
         if (Gate::denies('image_create')) {
             return abort(401);
+        }
+
+        $validator = Validator::make(
+            $request->images, [
+            'image_file.*' => 'required|mimes:jpg,jpeg,png|max:5000'
+            ],[
+                'image_file.*.required' => 'Please upload an image',
+                'image_file.*.mimes' => 'Only jpeg,png images are allowed',
+                'image_file.*.max' => 'Sorry! Maximum allowed size for an image is 5MB',
+            ]
+        );
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return $errors->toJson();
         }
 
         if (count($request->images)) {
@@ -60,7 +77,6 @@ class ImagesController extends Controller
                         'order' => 1
                     ]
                 );
-                //$image->store('images');
                 $image->addMedia($file)->toMediaCollection('image');
             }
         }

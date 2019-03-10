@@ -12,8 +12,6 @@ class PuzzlesController extends Controller
     {
         $images = Image::where('status', 1)->get();
 
-        //dd($images);
-
         return Puzzle::collection(
             $images
         );

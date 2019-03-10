@@ -47,15 +47,7 @@ export default {
     ...mapGetters("ImagesSingle", ["item", "loading"])
   },
   methods: {
-    ...mapActions("ImagesSingle", [
-      "storeData",
-      "storeImageData",
-      "resetState",
-      "setName",
-      "setImage",
-      "setOrder",
-      "setStatus"
-    ]),
+    ...mapActions("ImagesSingle", ["storeImageData"]),
     OnDragEnter(e) {
       e.preventDefault();
 
@@ -118,16 +110,19 @@ export default {
         formData.append("images[]", file, file.name);
       });
 
+      this.submitForm(formData);
+    },
+    submitForm(formData) {
       this.storeImageData(formData)
         .then(() => {
           this.images = [];
           this.files = [];
-          this.$router.push({ name: "images.index" });
-          this.$eventHub.$emit("create-success");
         })
         .catch(error => {
           console.log(error.response);
         });
+      this.$router.push({ name: "images.index" });
+      this.$eventHub.$emit("create-success");
     }
   }
 };

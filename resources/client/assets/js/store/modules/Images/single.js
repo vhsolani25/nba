@@ -36,7 +36,6 @@ const actions = {
                 .catch(error => {
                     let message = error.response.data.message || error.message;
                     let errors = error.response.data.errors;
-
                     dispatch(
                         "Alert/setAlert",
                         { message: message, errors: errors, color: "danger" },

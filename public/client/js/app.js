@@ -324,7 +324,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])("ImagesSingle", ["item", "loading"])),
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesSingle", ["storeData", "storeImageData", "resetState", "setName", "setImage", "setOrder", "setStatus"]), {
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("ImagesSingle", ["storeImageData"]), {
     OnDragEnter: function OnDragEnter(e) {
       e.preventDefault();
 
@@ -393,22 +393,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       return Math.round(size * 100) / 100 + " " + fSExt[i];
     },
     upload: function upload() {
-      var _this4 = this;
-
       var formData = new FormData();
 
       this.files.forEach(function (file) {
         formData.append("images[]", file, file.name);
       });
 
+      this.submitForm(formData);
+    },
+    submitForm: function submitForm(formData) {
+      var _this4 = this;
+
       this.storeImageData(formData).then(function () {
         _this4.images = [];
         _this4.files = [];
-        _this4.$router.push({ name: "images.index" });
-        _this4.$eventHub.$emit("create-success");
       }).catch(function (error) {
         console.log(error.response);
       });
+      this.$router.push({ name: "images.index" });
+      this.$eventHub.$emit("create-success");
     }
   })
 });
@@ -28726,7 +28729,6 @@ var actions = {
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
-
                 dispatch("Alert/setAlert", { message: message, errors: errors, color: "danger" }, { root: true });
 
                 reject(error);

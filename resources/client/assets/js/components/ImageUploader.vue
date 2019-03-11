@@ -117,12 +117,13 @@ export default {
         .then(() => {
           this.images = [];
           this.files = [];
+          this.$router.push({ name: "images.index" });
+          this.$eventHub.$emit("create-success");
         })
         .catch(error => {
           console.log(error.response);
         });
-      this.$router.push({ name: "images.index" });
-      this.$eventHub.$emit("create-success");
+
     }
   }
 };

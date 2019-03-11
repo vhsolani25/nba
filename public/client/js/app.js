@@ -407,11 +407,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.storeImageData(formData).then(function () {
         _this4.images = [];
         _this4.files = [];
+        _this4.$router.push({ name: "images.index" });
+        _this4.$eventHub.$emit("create-success");
       }).catch(function (error) {
         console.log(error.response);
       });
-      this.$router.push({ name: "images.index" });
-      this.$eventHub.$emit("create-success");
     }
   })
 });
@@ -26813,7 +26813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_eonasdan_bootstrap_datetimepicker_build_css_bootstrap_datetimepicker_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_eonasdan_bootstrap_datetimepicker_build_css_bootstrap_datetimepicker_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__config_ability__ = __webpack_require__("./resources/client/assets/js/config/ability.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__casl_vue__ = __webpack_require__("./node_modules/@casl/vue/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__ = __webpack_require__("./node_modules/vue-ckeditor2/dist/vue-ckeditor2.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_ckeditor2__ = __webpack_require__("./node_modules/vue-ckeditor2/dist/vue-ckeditor2.es.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when

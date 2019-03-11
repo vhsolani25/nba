@@ -6,6 +6,11 @@
         @drop="onDrop"
         :class="{ dragging: isDragging }">
 
+        <loading :active.sync="isLoading"
+        :can-cancel="true"
+        :on-cancel="onCancel"
+        :is-full-page="fullPage"></loading>
+
         <div class="upload-control" v-show="images.length">
             <label for="file">Select a file</label>
             <button @click="upload">Upload</button>
@@ -35,14 +40,23 @@
 </template>
 
 <script>
+// Import component
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
 import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
     isDragging: false,
     dragCount: 0,
     files: [],
-    images: []
+    images: [],
+    isLoading: false,
+    fullPage: true,
   }),
+  components: {
+    Loading
+  },
   computed: {
     ...mapGetters("ImagesSingle", ["item", "loading"])
   },
@@ -55,6 +69,9 @@ export default {
       this.isDragging = true;
 
       return false;
+    },
+    onCancel() {
+      console.log('User cancelled the loader.')
     },
     OnDragLeave(e) {
       e.preventDefault();
@@ -104,6 +121,8 @@ export default {
       return `${Math.round(size * 100) / 100} ${fSExt[i]}`;
     },
     upload() {
+     this.isLoading = true;
+     debugger;
       const formData = new FormData();
 
       this.files.forEach(file => {
@@ -117,6 +136,7 @@ export default {
         .then(() => {
           this.images = [];
           this.files = [];
+          this.isLoading = false
           this.$router.push({ name: "images.index" });
           this.$eventHub.$emit("create-success");
         })

@@ -56,12 +56,12 @@ class ImagesController extends Controller
             $request,
             [
                 'images' => 'required',
-                'images.*' => 'required|mimes:jpg,jpeg,png|max:6000'
+                'images.*' => 'required|mimes:jpg,jpeg,png|max:10000'
             ],
             [
                 'images.*.required' => 'Please upload an image',
                 'images.*.mimes' => 'Only jpeg,png images are allowed',
-                'images.*.max' => 'Sorry! Maximum allowed size for an image is 6MB',
+                'images.*.max' => 'Sorry! Maximum allowed size for an image is 10MB',
             ]
         );
 

@@ -54,12 +54,14 @@ class ImagesController extends Controller
         }
 
         $validator = Validator::make(
-            $request->images, [
-            'image_file.*' => 'required|mimes:jpg,jpeg,png|max:5000'
-            ],[
+            $request->images,
+            [
+                'image_file.*' => 'required|mimes:jpg,jpeg,png|max:6000'
+            ],
+            [
                 'image_file.*.required' => 'Please upload an image',
                 'image_file.*.mimes' => 'Only jpeg,png images are allowed',
-                'image_file.*.max' => 'Sorry! Maximum allowed size for an image is 5MB',
+                'image_file.*.max' => 'Sorry! Maximum allowed size for an image is 6MB',
             ]
         );
 
@@ -73,7 +75,7 @@ class ImagesController extends Controller
                 $image = Image::create(
                     [
                         'name' => 'one',
-                        'status'=> 1,
+                        'status' => 1,
                         'order' => 1
                     ]
                 );

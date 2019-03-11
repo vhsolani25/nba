@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator;
 use App\Http\Requests\Admin\StoreImagesRequest;
 use App\Http\Requests\Admin\UpdateImagesRequest;
 use App\Http\Resources\Image as ImageResource;
@@ -53,39 +52,36 @@ class ImagesController extends Controller
             return abort(401);
         }
 
-        $validator = Validator::make(
-            $request->images,
+        $this->validate(
+            $request,
             [
-                'image_file.*' => 'required|mimes:jpg,jpeg,png|max:6000'
+                'images' => 'required',
+                'images.*' => 'required|mimes:jpg,jpeg,png|max:6000'
             ],
             [
-                'image_file.*.required' => 'Please upload an image',
-                'image_file.*.mimes' => 'Only jpeg,png images are allowed',
-                'image_file.*.max' => 'Sorry! Maximum allowed size for an image is 6MB',
+                'images.*.required' => 'Please upload an image',
+                'images.*.mimes' => 'Only jpeg,png images are allowed',
+                'images.*.max' => 'Sorry! Maximum allowed size for an image is 6MB',
             ]
         );
 
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            return $errors->toJson();
-        }
-
-        if (count($request->images)) {
-            foreach ($request->images as $file) {
-                $image = Image::create(
-                    [
-                        'name' => 'one',
-                        'status' => 1,
-                        'order' => 1
-                    ]
-                );
-                $image->addMedia($file)->toMediaCollection('image');
+        if ($request->hasfile('images')) {
+            if (count($request->images)) {
+                foreach ($request->images as $file) {
+                    $image = Image::create(
+                        [
+                            'name' => 'one',
+                            'status' => 1,
+                            'order' => 1
+                        ]
+                    );
+                    $image->addMedia($file)->toMediaCollection('image');
+                }
             }
-        }
-
-        return (new ImageResource($image))
+            return (new ImageResource($image))
             ->response()
             ->setStatusCode(201);
+        }
     }
 
     /**

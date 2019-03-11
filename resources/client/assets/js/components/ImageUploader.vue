@@ -123,25 +123,6 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
-
-
-      // return new Promise((resolve, reject) => {
-      //     axios
-      //         .post("/api/v1/images", formData)
-      //         .then(response => {
-      //             this.$router.push({ name: "images.index" });
-      //             this.$eventHub.$emit("create-success");
-      //             resolve();
-      //         })
-      //         .catch(error => {
-      //             let message = error.response.data.message || error.message;
-      //             let errors = error.response.data.errors;
-      //             reject(error);
-      //         })
-      //         .finally(() => {
-
-      //         });
-      //});
     }
   }
 };
